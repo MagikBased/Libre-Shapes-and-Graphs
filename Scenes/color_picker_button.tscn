@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cvyh5wm8amh00"]
+
+[node name="ColorPickerButton" type="ColorPickerButton"]
+offset_right = 8.0
+offset_bottom = 8.0

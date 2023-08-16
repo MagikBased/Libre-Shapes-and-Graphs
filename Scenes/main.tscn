@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://baijyjl3w27nx"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_k1c15"]
+[ext_resource type="PackedScene" uid="uid://cvyh5wm8amh00" path="res://Scenes/color_picker_button.tscn" id="2_0hx8j"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(222, 102)
+script = ExtResource("1_k1c15")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorPickerButton" parent="UI" instance=ExtResource("2_0hx8j")]
+layout_mode = 0
+color = Color(1, 1, 1, 1)
