@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://baijyjl3w27nx"]
+[gd_scene load_steps=4 format=3 uid="uid://baijyjl3w27nx"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_k1c15"]
 [ext_resource type="PackedScene" uid="uid://cvyh5wm8amh00" path="res://Scenes/color_picker_button.tscn" id="2_0hx8j"]
+[ext_resource type="Script" path="res://Scripts/FPSLabel.gd" id="3_npdse"]
 
 [node name="Main" type="Node2D"]
-position = Vector2(222, 102)
 script = ExtResource("1_k1c15")
 
 [node name="UI" type="Control" parent="."]
@@ -14,5 +14,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorPickerButton" parent="UI" instance=ExtResource("2_0hx8j")]
+visible = false
 layout_mode = 0
 color = Color(1, 1, 1, 1)
+
+[node name="FPSLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 1094.0
+offset_top = 5.0
+offset_right = 1134.0
+offset_bottom = 28.0
+script = ExtResource("3_npdse")
