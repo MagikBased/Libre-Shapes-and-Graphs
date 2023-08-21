@@ -70,7 +70,6 @@ func start_color_lerp(start_col:Color, end_col: Color, easing: String = "Linear"
 	reverse_color = should_reverse
 	loop = should_loop
 	
-
 func start_rainbow_lerp():
 	start_color = rainbow_colors[0]
 	current_t_index = 0
