@@ -8,10 +8,11 @@ func spawn_shape(shape_type: String, pos: Vector2, color: Color):
 	add_child(shape)
 	return shape
 
-func spawn_line(_start_point: Vector2, _end_point: Vector2):
+func spawn_line(_start_point: Vector2, _end_point: Vector2, _color: Color = Color.WHITE):
 	var line = load("res://Scripts/Line.gd").new()
 	line.start_point = _start_point
 	line.end_point = _end_point
+	line.color = _color
 	#line.position = pos
 	add_child(line)
 	print("Line: "+str(line))

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/port_demos/PortDemosRunner.gd" id="1_t4w5p"]
+
+[node name="PortDemosRunner" type="Node2D"]
+script = ExtResource("1_t4w5p")

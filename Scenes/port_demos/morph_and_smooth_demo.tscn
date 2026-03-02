@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/port_demos/MorphAndSmoothDemo.gd" id="1_4gr7y"]
+
+[node name="MorphAndSmoothDemo" type="Node2D"]
+script = ExtResource("1_4gr7y")
