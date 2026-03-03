@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/port_demos/CurveWindowParityDemo.gd" id="1_cw34d"]
+
+[node name="CurveWindowParityDemo" type="Node2D"]
+script = ExtResource("1_cw34d")

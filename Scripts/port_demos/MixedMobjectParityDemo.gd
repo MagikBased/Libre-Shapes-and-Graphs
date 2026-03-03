@@ -75,7 +75,9 @@ func _make_checker_texture(width: int, height: int) -> Texture2D:
 	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
 	for y in range(height):
 		for x in range(width):
-			var dark := ((x / 12 + y / 12) % 2) == 0
+			var checker_x := int(floor(float(x) / 12.0))
+			var checker_y := int(floor(float(y) / 12.0))
+			var dark := ((checker_x + checker_y) % 2) == 0
 			var c := Color(0.18, 0.23, 0.33) if dark else Color(0.8, 0.9, 1.0)
 			image.set_pixel(x, y, c)
 	return ImageTexture.create_from_image(image)

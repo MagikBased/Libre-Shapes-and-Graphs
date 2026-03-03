@@ -114,11 +114,11 @@ func _apply_alignment() -> void:
 		return
 	match String(align_mode).to_lower():
 		"center":
-			_label.horizontal_alignment = 1
+			_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		"right":
-			_label.horizontal_alignment = 2
+			_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		_:
-			_label.horizontal_alignment = 0
+			_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 
 func _build_tokens_from_expressions() -> PackedStringArray:

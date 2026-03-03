@@ -79,7 +79,6 @@ func _interpolate_polygons(t: float) -> void:
 		return
 
 	var source_poly := source as Polygon2D
-	var destination_poly := destination as Polygon2D
 	var morphed := PackedVector2Array()
 	morphed.resize(_matched_vertex_count)
 

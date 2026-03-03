@@ -202,8 +202,11 @@ func _ensure_scene_camera() -> Camera2D:
 	scene_camera = Camera2D.new()
 	scene_camera.name = "PortSceneCamera2D"
 	scene_camera.enabled = true
-	scene_camera.make_current()
 	add_child(scene_camera)
+	if scene_camera.is_inside_tree():
+		scene_camera.make_current()
+	else:
+		scene_camera.call_deferred("make_current")
 	return scene_camera
 
 

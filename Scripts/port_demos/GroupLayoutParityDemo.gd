@@ -56,7 +56,7 @@ func _build_members() -> void:
 		c.size = Vector2(46.0, 46.0)
 		c.color = Color.WHITE
 		var x := 160.0 + float(i % 4) * 48.0
-		var y := 180.0 + float(i / 4) * 48.0
+		var y: float = 180.0 + floor(float(i) / 4.0) * 48.0
 		c.position = Vector2(x, y)
 		add_child(c)
 		group.add_member(c)

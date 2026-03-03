@@ -127,7 +127,7 @@ func compute_grid_positions(
 		)
 
 	for i in range(n):
-		var r := i / resolved_cols
+		var r := int(floor(float(i) / float(resolved_cols)))
 		var c := i % resolved_cols
 		var p := Vector2(float(c) * spacing.x, float(r) * spacing.y) - offset
 		out.append(p)
