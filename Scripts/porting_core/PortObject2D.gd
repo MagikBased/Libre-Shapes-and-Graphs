@@ -5,9 +5,12 @@ var animate: PortAnimateProxy:
 	get:
 		return PortAnimateProxy.new(self)
 
-var color: Color = Color.WHITE:
+var _color: Color = Color.WHITE
+var color: Color:
+	get:
+		return _color
 	set(value):
-		field = value
+		_color = value
 		queue_redraw()
 
 var updating_suspended: bool = false

@@ -1,15 +1,21 @@
 class_name ImplicitFunction2D
 extends PortObject2D
 
+var _axes: GraphAxes2D
 var axes: GraphAxes2D:
+	get:
+		return _axes
 	set(value):
-		field = value
+		_axes = value
 		recompute_segments()
 var function_name: StringName = &"circle"
 var stroke_width: float = 2.0
-var grid_resolution: int = 80:
+var _grid_resolution: int = 80
+var grid_resolution: int:
+	get:
+		return _grid_resolution
 	set(value):
-		field = maxi(8, value)
+		_grid_resolution = maxi(8, value)
 		recompute_segments()
 var draw_progress: float = 1.0
 

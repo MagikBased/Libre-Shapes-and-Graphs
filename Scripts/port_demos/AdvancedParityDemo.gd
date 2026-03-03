@@ -58,10 +58,9 @@ func _ready() -> void:
 
 	play(PortShowCreation.new(sin_plot, 1.3, &"smooth"))
 	wait(0.4)
-	play_group([
-		PortReplacementTransform.new(sin_plot, step_plot, 0.8, &"smooth"),
-		PortReplacementTransform.new(sin_label, step_label, 0.8, &"smooth", false),
-	])
+	play(PortReplacementTransform.new(sin_plot, step_plot, 0.8, &"smooth"))
+	sin_label.modulate.a = 0.0
+	step_label.modulate.a = 1.0
 	wait(0.3)
 
 	x_tracker = PortValueTracker.new(1.5)

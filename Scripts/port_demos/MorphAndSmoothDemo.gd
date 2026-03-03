@@ -76,9 +76,9 @@ func _ready() -> void:
 
 	play_group([
 		PortShowCreation.new(smooth_plot, 1.2, &"smooth"),
-		PortFadeIn.new(smooth_label, 0.8, &"smooth"),
 		PortMorphTransform.new(poly_source, poly_target, 1.5, &"smooth"),
 	])
+	smooth_label.modulate.a = 1.0
 
 
 func _make_polygon(points: PackedVector2Array, pos: Vector2, fill_color: Color) -> Polygon2D:

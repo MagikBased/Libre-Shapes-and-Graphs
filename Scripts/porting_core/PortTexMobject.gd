@@ -1,10 +1,13 @@
 class_name PortTexMobject
 extends PortTextMobject
 
-var tex_source: String = "":
+var _tex_source: String = ""
+var tex_source: String:
+	get:
+		return _tex_source
 	set(value):
-		field = value
-		text = _render_tex_to_display(field)
+		_tex_source = value
+		text = _render_tex_to_display(_tex_source)
 
 
 const GREEK_MAP := {

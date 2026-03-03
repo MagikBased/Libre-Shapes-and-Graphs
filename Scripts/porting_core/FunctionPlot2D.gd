@@ -1,36 +1,57 @@
 class_name FunctionPlot2D
 extends PortObject2D
 
+var _axes: GraphAxes2D
 var axes: GraphAxes2D:
+	get:
+		return _axes
 	set(value):
-		field = value
+		_axes = value
 		recompute_points()
-var function_name: StringName = &"sin":
+var _function_name: StringName = &"sin"
+var function_name: StringName:
+	get:
+		return _function_name
 	set(value):
-		field = value
+		_function_name = value
 		recompute_points()
 var stroke_width: float = 3.0
-var sample_count: int = 180:
+var _sample_count: int = 180
+var sample_count: int:
+	get:
+		return _sample_count
 	set(value):
-		field = maxi(2, value)
+		_sample_count = maxi(2, value)
 		recompute_points()
 var draw_progress: float = 1.0
-var style: StringName = &"solid":
+var _style: StringName = &"solid"
+var style: StringName:
+	get:
+		return _style
 	set(value):
-		field = value
+		_style = value
 		queue_redraw()
-var render_mode: StringName = &"polyline":
+var _render_mode: StringName = &"polyline"
+var render_mode: StringName:
+	get:
+		return _render_mode
 	set(value):
-		field = value
+		_render_mode = value
 		_prepare_render_points()
 		queue_redraw()
-var discontinuities: PackedFloat32Array = PackedFloat32Array():
+var _discontinuities: PackedFloat32Array = PackedFloat32Array()
+var discontinuities: PackedFloat32Array:
+	get:
+		return _discontinuities
 	set(value):
-		field = value
+		_discontinuities = value
 		queue_redraw()
-var discontinuity_epsilon: float = 0.0005:
+var _discontinuity_epsilon: float = 0.0005
+var discontinuity_epsilon: float:
+	get:
+		return _discontinuity_epsilon
 	set(value):
-		field = maxf(0.0, value)
+		_discontinuity_epsilon = maxf(0.0, value)
 		queue_redraw()
 
 var _points: PackedVector2Array = PackedVector2Array()

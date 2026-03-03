@@ -1,20 +1,29 @@
 class_name PortTextMobject
 extends PortObject2D
 
-var text: String = "":
+var _text: String = ""
+var text: String:
+	get:
+		return _text
 	set(value):
-		field = value
+		_text = value
 		if _label != null:
-			_label.text = field
+			_label.text = _text
 			_update_reveal()
-var font_size: int = 48:
+var _font_size: int = 48
+var font_size: int:
+	get:
+		return _font_size
 	set(value):
-		field = maxi(1, value)
+		_font_size = maxi(1, value)
 		if _label != null:
-			_label.add_theme_font_size_override("font_size", field)
-var reveal_progress: float = 1.0:
+			_label.add_theme_font_size_override("font_size", _font_size)
+var _reveal_progress: float = 1.0
+var reveal_progress: float:
+	get:
+		return _reveal_progress
 	set(value):
-		field = clampf(value, 0.0, 1.0)
+		_reveal_progress = clampf(value, 0.0, 1.0)
 		_update_reveal()
 
 var _label: Label

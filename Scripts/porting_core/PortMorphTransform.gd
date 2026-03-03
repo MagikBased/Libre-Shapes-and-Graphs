@@ -102,6 +102,6 @@ func _resample_vertices(points: PackedVector2Array, target_count: int) -> Packed
 		var pos := float(i) * float(n) / float(target_count)
 		var a := int(floor(pos)) % n
 		var b := (a + 1) % n
-		var local_t := pos - floor(pos)
+		var local_t: float = pos - floor(pos)
 		result[i] = points[a].lerp(points[b], local_t)
 	return result

@@ -1,58 +1,97 @@
 class_name GraphAxes2D
 extends PortObject2D
 
-var x_min: float = -6.0:
+var _x_min: float = -6.0
+var x_min: float:
+	get:
+		return _x_min
 	set(value):
-		field = value
+		_x_min = value
 		_on_axes_config_changed()
-var x_max: float = 6.0:
+var _x_max: float = 6.0
+var x_max: float:
+	get:
+		return _x_max
 	set(value):
-		field = value
+		_x_max = value
 		_on_axes_config_changed()
-var y_min: float = -4.0:
+var _y_min: float = -4.0
+var y_min: float:
+	get:
+		return _y_min
 	set(value):
-		field = value
+		_y_min = value
 		_on_axes_config_changed()
-var y_max: float = 4.0:
+var _y_max: float = 4.0
+var y_max: float:
+	get:
+		return _y_max
 	set(value):
-		field = value
+		_y_max = value
 		_on_axes_config_changed()
 
-var viewport_size: Vector2 = Vector2(960.0, 540.0):
+var _viewport_size: Vector2 = Vector2(960.0, 540.0)
+var viewport_size: Vector2:
+	get:
+		return _viewport_size
 	set(value):
-		field = Vector2(maxf(1.0, value.x), maxf(1.0, value.y))
+		_viewport_size = Vector2(maxf(1.0, value.x), maxf(1.0, value.y))
 		_on_axes_config_changed()
-var axis_color: Color = Color(0.85, 0.9, 1.0):
+var _axis_color: Color = Color(0.85, 0.9, 1.0)
+var axis_color: Color:
+	get:
+		return _axis_color
 	set(value):
-		field = value
+		_axis_color = value
 		queue_redraw()
-var grid_color: Color = Color(0.25, 0.3, 0.4, 0.45):
+var _grid_color: Color = Color(0.25, 0.3, 0.4, 0.45)
+var grid_color: Color:
+	get:
+		return _grid_color
 	set(value):
-		field = value
+		_grid_color = value
 		queue_redraw()
-var axis_width: float = 2.5:
+var _axis_width: float = 2.5
+var axis_width: float:
+	get:
+		return _axis_width
 	set(value):
-		field = maxf(0.1, value)
+		_axis_width = maxf(0.1, value)
 		queue_redraw()
-var grid_width: float = 1.0:
+var _grid_width: float = 1.0
+var grid_width: float:
+	get:
+		return _grid_width
 	set(value):
-		field = maxf(0.1, value)
+		_grid_width = maxf(0.1, value)
 		queue_redraw()
-var tick_step_x: float = 1.0:
+var _tick_step_x: float = 1.0
+var tick_step_x: float:
+	get:
+		return _tick_step_x
 	set(value):
-		field = maxf(0.0001, absf(value))
+		_tick_step_x = maxf(0.0001, absf(value))
 		_on_axes_config_changed()
-var tick_step_y: float = 1.0:
+var _tick_step_y: float = 1.0
+var tick_step_y: float:
+	get:
+		return _tick_step_y
 	set(value):
-		field = maxf(0.0001, absf(value))
+		_tick_step_y = maxf(0.0001, absf(value))
 		_on_axes_config_changed()
-var tick_size: float = 8.0:
+var _tick_size: float = 8.0
+var tick_size: float:
+	get:
+		return _tick_size
 	set(value):
-		field = maxf(0.0, value)
+		_tick_size = maxf(0.0, value)
 		queue_redraw()
-var tick_color: Color = Color(0.9, 0.95, 1.0):
+var _tick_color: Color = Color(0.9, 0.95, 1.0)
+var tick_color: Color:
+	get:
+		return _tick_color
 	set(value):
-		field = value
+		_tick_color = value
 		queue_redraw()
 
 var _label_layer: Node2D
