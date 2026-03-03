@@ -13,7 +13,8 @@ var tex_source: String:
 const GREEK_MAP := {
 	"alpha": "alpha", "beta": "beta", "gamma": "gamma", "delta": "delta",
 	"epsilon": "epsilon", "theta": "theta", "lambda": "lambda", "mu": "mu",
-	"pi": "pi", "sigma": "sigma", "phi": "phi", "omega": "omega"
+	"pi": "pi", "sigma": "sigma", "phi": "phi", "omega": "omega",
+	"tau": "tau", "eta": "eta", "rho": "rho", "chi": "chi", "psi": "psi"
 }
 
 const SUPER_MAP := {
@@ -29,14 +30,29 @@ const SUB_MAP := {
 
 func _render_tex_to_display(src: String) -> String:
 	var s := src
+	s = _strip_layout_wrappers(s)
 	s = s.replace("\\\\", "\n")
 	s = _replace_frac(s)
 	s = _replace_sqrt(s)
+	s = _replace_text(s)
+	s = _replace_named_commands(s)
 	s = _replace_greek(s)
 	s = _replace_scripts(s, "^", SUPER_MAP)
 	s = _replace_scripts(s, "_", SUB_MAP)
 	s = s.replace("{", "").replace("}", "")
 	return s
+
+
+func get_match_tokens() -> PackedStringArray:
+	var raw := _render_tex_to_display(tex_source)
+	raw = raw.replace("\n", " ")
+	var split := raw.split(" ", false)
+	var tokens := PackedStringArray()
+	for p in split:
+		var token := p.strip_edges()
+		if token.length() >= 2 and not tokens.has(token):
+			tokens.append(token)
+	return tokens
 
 
 func _replace_frac(s: String) -> String:
@@ -80,6 +96,55 @@ func _replace_greek(s: String) -> String:
 	var out := s
 	for key in GREEK_MAP.keys():
 		out = out.replace("\\" + key, GREEK_MAP[key])
+	return out
+
+
+func _replace_named_commands(s: String) -> String:
+	var out := s
+	var replacements := {
+		"\\cdot": "*",
+		"\\times": "x",
+		"\\pm": "+/-",
+		"\\to": "->",
+		"\\rightarrow": "->",
+		"\\leftarrow": "<-",
+		"\\geq": ">=",
+		"\\leq": "<=",
+		"\\neq": "!=",
+		"\\approx": "~",
+		"\\infty": "inf",
+		"\\sum": "sum",
+		"\\prod": "prod",
+		"\\int": "int",
+		"\\lim": "lim"
+	}
+	for k in replacements.keys():
+		out = out.replace(k, str(replacements[k]))
+	return out
+
+
+func _replace_text(s: String) -> String:
+	var out := s
+	while true:
+		var idx := out.find("\\text{")
+		if idx < 0:
+			break
+		var start := idx + 6
+		var end := _find_matching_brace(out, start - 1)
+		if end < 0:
+			break
+		var body := out.substr(start, end - start)
+		out = out.substr(0, idx) + body + out.substr(end + 1)
+	return out
+
+
+func _strip_layout_wrappers(s: String) -> String:
+	var out := s
+	out = out.replace("\\left", "")
+	out = out.replace("\\right", "")
+	out = out.replace("\\,", " ")
+	out = out.replace("\\;", " ")
+	out = out.replace("\\!", "")
 	return out
 
 

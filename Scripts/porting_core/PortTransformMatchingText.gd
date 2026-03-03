@@ -68,7 +68,14 @@ func interpolate(alpha: float) -> void:
 
 
 func _has_match_hint() -> bool:
-	return not matched_keys.is_empty() or not key_map.is_empty()
+	if not matched_keys.is_empty() or not key_map.is_empty():
+		return true
+	var src_tokens := _extract_match_tokens(source)
+	var dst_tokens := _extract_match_tokens(destination)
+	for token in src_tokens:
+		if dst_tokens.has(token):
+			return true
+	return false
 
 
 func _curve_interp(a: Vector2, b: Vector2, t: float, arc: float) -> Vector2:
@@ -91,6 +98,11 @@ func _pick_source_anchor(src_text: String) -> String:
 			var sk := str(k)
 			if src_text.find(sk) >= 0:
 				return sk
+	var src_tokens := _extract_match_tokens(source)
+	var dst_tokens := _extract_match_tokens(destination)
+	for token in src_tokens:
+		if dst_tokens.has(token):
+			return token
 	return ""
 
 
@@ -106,6 +118,23 @@ func _pick_destination_anchor(dst_text: String) -> String:
 				return mapped
 	var src_anchor := _pick_source_anchor(source.text if source != null else "")
 	return src_anchor
+
+
+func _extract_match_tokens(text_mob: PortTextMobject) -> PackedStringArray:
+	if text_mob == null:
+		return PackedStringArray()
+	if text_mob.has_method("get_match_tokens"):
+		var tokens = text_mob.call("get_match_tokens")
+		if tokens is PackedStringArray:
+			return tokens
+		if tokens is Array:
+			return PackedStringArray(tokens)
+	var fallback := PackedStringArray()
+	for part in text_mob.text.replace("\n", " ").split(" ", false):
+		var clean := part.strip_edges()
+		if clean.length() >= 2:
+			fallback.append(clean)
+	return fallback
 
 
 func _estimate_anchor_offset(text_mob: PortTextMobject, token: String) -> Vector2:

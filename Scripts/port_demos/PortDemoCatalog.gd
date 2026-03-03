@@ -23,16 +23,32 @@ const VISUAL_2D_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/example_coordinate_system_port.tscn",
 	"res://Scenes/port_demos/morph_and_smooth_demo.tscn",
 	"res://Scenes/port_demos/play_semantics_map_demo.tscn",
+	"res://Scenes/port_demos/camera_framing_demo.tscn",
+	"res://Scenes/port_demos/math_tex_parity_demo.tscn",
+	"res://Scenes/port_demos/decimal_number_parity_demo.tscn",
+	"res://Scenes/port_demos/number_line_parity_demo.tscn",
+	"res://Scenes/port_demos/angle_parity_demo.tscn",
+	"res://Scenes/port_demos/group_layout_parity_demo.tscn",
+	"res://Scenes/port_demos/surrounding_rectangle_parity_demo.tscn",
+	"res://Scenes/port_demos/brace_parity_demo.tscn",
+	"res://Scenes/port_demos/mixed_mobject_parity_demo.tscn",
+	"res://Scenes/port_demos/dynamic_helpers_demo.tscn",
+	"res://Scenes/port_demos/path_follow_parity_demo.tscn",
+	"res://Scenes/port_demos/animation_expansion_demo.tscn",
+	"res://Scenes/port_demos/advanced_graphing_upgrade_demo.tscn",
 ]
 
 const VISUAL_3D_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/surface_3d_demo.tscn",
+	"res://Scenes/port_demos/three_d_parity_demo.tscn",
 ]
 
 const TOOL_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/port_demos_index.tscn",
 	"res://Scenes/port_demos/port_demos_runner.tscn",
 	"res://Scenes/port_demos/port_demos_smoke_check.tscn",
+	"res://Scenes/port_demos/render_export_workflow_helper.tscn",
+	"res://Scenes/port_demos/phase6_coverage_report.tscn",
 ]
 
 

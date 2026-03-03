@@ -1,5 +1,5 @@
 # Demo: UpdaterGraphDemo
-# Expected behavior: See PlandAndCopy/DEMO_NOTES.md
+# Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
 extends PortCompatibleScene
 

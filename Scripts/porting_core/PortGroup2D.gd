@@ -52,8 +52,34 @@ func arrange_linear(
 	spacing: float = 64.0,
 	centered: bool = true
 ) -> PortGroup2D:
+	return arrange(direction, spacing, centered)
+
+
+func arrange(
+	direction: Vector2 = Vector2.RIGHT,
+	spacing: float = 64.0,
+	centered: bool = true
+) -> PortGroup2D:
+	return apply_positions(compute_linear_positions(direction, spacing, centered))
+
+
+func arrange_in_grid(
+	rows: int = 0,
+	cols: int = 0,
+	cell_size: Vector2 = Vector2(96.0, 96.0),
+	centered: bool = true
+) -> PortGroup2D:
+	return apply_positions(compute_grid_positions(rows, cols, cell_size, centered))
+
+
+func compute_linear_positions(
+	direction: Vector2 = Vector2.RIGHT,
+	spacing: float = 64.0,
+	centered: bool = true
+) -> Array[Vector2]:
+	var out: Array[Vector2] = []
 	if members.is_empty():
-		return self
+		return out
 	var unit := direction.normalized()
 	if unit == Vector2.ZERO:
 		unit = Vector2.RIGHT
@@ -61,7 +87,57 @@ func arrange_linear(
 	if centered:
 		start = -0.5 * spacing * float(members.size() - 1)
 	for i in range(members.size()):
-		members[i].position = unit * (start + spacing * float(i))
+		out.append(unit * (start + spacing * float(i)))
+	return out
+
+
+func compute_grid_positions(
+	rows: int = 0,
+	cols: int = 0,
+	cell_size: Vector2 = Vector2(96.0, 96.0),
+	centered: bool = true
+) -> Array[Vector2]:
+	var out: Array[Vector2] = []
+	var n := members.size()
+	if n <= 0:
+		return out
+
+	var resolved_cols := cols
+	var resolved_rows := rows
+	if resolved_rows <= 0 and resolved_cols <= 0:
+		resolved_cols = int(ceil(sqrt(float(n))))
+		resolved_rows = int(ceil(float(n) / float(resolved_cols)))
+	elif resolved_rows <= 0:
+		resolved_cols = maxi(1, resolved_cols)
+		resolved_rows = int(ceil(float(n) / float(resolved_cols)))
+	elif resolved_cols <= 0:
+		resolved_rows = maxi(1, resolved_rows)
+		resolved_cols = int(ceil(float(n) / float(resolved_rows)))
+
+	resolved_cols = maxi(1, resolved_cols)
+	resolved_rows = maxi(1, resolved_rows)
+	var spacing := Vector2(maxf(1.0, cell_size.x), maxf(1.0, cell_size.y))
+	var used_cols := mini(resolved_cols, n)
+	var used_rows := int(ceil(float(n) / float(resolved_cols)))
+	var offset := Vector2.ZERO
+	if centered:
+		offset = Vector2(
+			0.5 * spacing.x * float(used_cols - 1),
+			0.5 * spacing.y * float(used_rows - 1)
+		)
+
+	for i in range(n):
+		var r := i / resolved_cols
+		var c := i % resolved_cols
+		var p := Vector2(float(c) * spacing.x, float(r) * spacing.y) - offset
+		out.append(p)
+	return out
+
+
+func apply_positions(positions: Array[Vector2]) -> PortGroup2D:
+	var count := mini(members.size(), positions.size())
+	for i in range(count):
+		members[i].position = positions[i]
 	return self
 
 

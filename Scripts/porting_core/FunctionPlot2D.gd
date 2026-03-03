@@ -92,8 +92,19 @@ func recompute_points() -> void:
 func get_point_at_x(x: float) -> Vector2:
 	if axes == null:
 		return Vector2.ZERO
-	var y := _eval_function(x)
+	var y := eval_y(x)
 	return axes.graph_to_local(Vector2(x, y))
+
+
+func eval_y(x: float) -> float:
+	return _eval_function(x)
+
+
+func get_slope_at_x(x: float, dx: float = 0.0008) -> float:
+	var h := maxf(0.000001, absf(dx))
+	var y0 := eval_y(x - h)
+	var y1 := eval_y(x + h)
+	return (y1 - y0) / (2.0 * h)
 
 
 func _eval_function(x: float) -> float:

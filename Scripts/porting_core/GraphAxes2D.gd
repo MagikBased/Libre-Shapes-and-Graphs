@@ -278,6 +278,37 @@ func world_to_graph(world_point: Vector2) -> Vector2:
 	return local_to_graph(to_local(world_point))
 
 
+func get_secant_line_points(graph: FunctionPlot2D, x0: float, x1: float) -> PackedVector2Array:
+	if graph == null:
+		return PackedVector2Array()
+	var y0 := graph.eval_y(x0)
+	var y1 := graph.eval_y(x1)
+	return PackedVector2Array([
+		c2p(x0, y0),
+		c2p(x1, y1),
+	])
+
+
+func get_tangent_line_points(
+	graph: FunctionPlot2D,
+	x_value: float,
+	graph_span: float = 2.0
+) -> PackedVector2Array:
+	if graph == null:
+		return PackedVector2Array()
+	var span := maxf(0.0001, absf(graph_span))
+	var y := graph.eval_y(x_value)
+	var m := graph.get_slope_at_x(x_value)
+	var x0 := x_value - span * 0.5
+	var x1 := x_value + span * 0.5
+	var y0 := y + m * (x0 - x_value)
+	var y1 := y + m * (x1 - x_value)
+	return PackedVector2Array([
+		c2p(x0, y0),
+		c2p(x1, y1),
+	])
+
+
 func get_graph_label(
 	graph: FunctionPlot2D,
 	text: String,
