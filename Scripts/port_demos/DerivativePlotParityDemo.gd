@@ -42,6 +42,7 @@ func _ready() -> void:
 	derivative_plot.derivative_epsilon = 0.003
 	derivative_plot.color = Color(1.0, 0.68, 0.3, 0.92)
 	derivative_plot.stroke_width = 2.5
+	derivative_plot.auto_update = false
 	derivative_plot.position = axes.position
 	derivative_plot.set_draw_progress(0.0)
 	add_child(derivative_plot)
@@ -67,7 +68,7 @@ func _ready() -> void:
 	])
 	play_sequence([
 		PortSetValue.new(x_tracker, 6.3, 1.6, &"smooth"),
-		PortSetValue.new(x_tracker, -1.0, 1.2, &"there_and_back_with_pause"),
+		PortSetValue.new(x_tracker, -1.0, 1.2, &"smooth"),
 		PortSetValue.new(x_tracker, 4.2, 1.0, &"smooth"),
 	])
 

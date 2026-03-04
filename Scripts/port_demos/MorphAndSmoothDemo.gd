@@ -39,7 +39,6 @@ func _ready() -> void:
 		Vector2(220.0, 220.0),
 		Color.GOLD
 	)
-	poly_target.modulate.a = 0.0
 
 	axes = GraphAxes2D.new()
 	axes.position = Vector2(380.0, 90.0)

@@ -43,6 +43,7 @@ func _ready() -> void:
 	integral_plot.integration_steps = 28
 	integral_plot.color = Color(1.0, 0.7, 0.33, 0.92)
 	integral_plot.stroke_width = 2.5
+	integral_plot.auto_update = false
 	integral_plot.position = axes.position
 	integral_plot.set_draw_progress(0.0)
 	add_child(integral_plot)
@@ -68,7 +69,7 @@ func _ready() -> void:
 	])
 	play_sequence([
 		PortSetValue.new(x_tracker, 6.4, 1.7, &"smooth"),
-		PortSetValue.new(x_tracker, -2.0, 1.25, &"there_and_back_with_pause"),
+		PortSetValue.new(x_tracker, -2.0, 1.25, &"smooth"),
 		PortSetValue.new(x_tracker, 3.2, 1.0, &"smooth"),
 	])
 

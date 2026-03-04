@@ -28,7 +28,6 @@ func _ready() -> void:
 		Vector2(-74.0, -20.0),
 		Vector2(-22.0, -26.0),
 	]), Vector2(920.0, 340.0), Color.DEEP_SKY_BLUE)
-	target_poly.modulate.a = 0.0
 
 	play(PortTransformMatchingShapes.new(source_poly, target_poly, 1.6, &"smooth"))
 

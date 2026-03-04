@@ -20,7 +20,6 @@ func _ready() -> void:
 	destination_rect.size = Vector2(150.0, 100.0)
 	destination_rect.color = Color.DEEP_SKY_BLUE
 	destination_rect.position = Vector2(880.0, 340.0)
-	destination_rect.modulate.a = 0.0
 	add_child(destination_rect)
 
 	play(PortFadeTransform.new(source_circle, destination_rect, 1.2, &"smooth", true))

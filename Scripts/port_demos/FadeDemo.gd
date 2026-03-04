@@ -12,8 +12,6 @@ func _ready() -> void:
 
 	circle_a = _make_circle(Vector2(360.0, 320.0), Color.ORANGE_RED)
 	circle_b = _make_circle(Vector2(760.0, 320.0), Color.DEEP_SKY_BLUE)
-	circle_a.modulate.a = 0.0
-	circle_b.modulate.a = 0.0
 
 	play([
 		PortFadeIn.new(circle_a, 1.0, &"smooth"),

@@ -52,7 +52,7 @@ func _ready() -> void:
 
 func _update_dot_position(target: PortObject2D, _delta: float) -> void:
 	var x := x_controller.position.x
-	var y := 0.25 * x * x
+	var y := parabola.eval_y(x)
 	target.position = axes.position + axes.graph_to_local(Vector2(x, y))
 
 

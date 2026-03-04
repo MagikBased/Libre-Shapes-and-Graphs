@@ -6,11 +6,14 @@ extends PortCompatibleScene
 var status_label: Label
 var event_label: Label
 var dot: Circle
+var _running_in_port_demos_runner: bool = false
 
 
 func _ready() -> void:
-	_create_caption("Timeline controls demo: Enter toggles pause, Reset reloads scene")
-	_create_status_labels()
+	_running_in_port_demos_runner = get_parent() != null and get_parent().name == "PortDemosRunner"
+	if not _running_in_port_demos_runner:
+		_create_caption("Timeline controls demo: Enter toggles pause, Reset reloads scene")
+		_create_status_labels()
 
 	runner.group_started.connect(_on_group_started)
 	runner.group_finished.connect(_on_group_finished)
@@ -31,6 +34,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if _running_in_port_demos_runner:
+		return
 	if event.is_action_pressed("ui_accept"):
 		toggle_timeline_pause()
 		_refresh_status()
@@ -39,17 +44,20 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_group_started(group_size: int) -> void:
-	event_label.text = "Event: group_started(size=%d)" % group_size
+	if event_label != null:
+		event_label.text = "Event: group_started(size=%d)" % group_size
 	_refresh_status()
 
 
 func _on_group_finished() -> void:
-	event_label.text = "Event: group_finished"
+	if event_label != null:
+		event_label.text = "Event: group_finished"
 	_refresh_status()
 
 
 func _on_timeline_empty() -> void:
-	event_label.text = "Event: timeline_empty"
+	if event_label != null:
+		event_label.text = "Event: timeline_empty"
 	_refresh_status()
 
 
@@ -75,9 +83,15 @@ func _create_status_labels() -> void:
 
 
 func _refresh_status() -> void:
+	if status_label == null:
+		return
 	status_label.text = "Status: playing=%s paused=%s queued=%d active=%d" % [
 		str(is_playing()),
 		str(is_timeline_paused()),
 		runner.queued_groups.size(),
 		runner.active_animations.size(),
 	]
+
+
+func get_runner_controls_hint() -> String:
+	return "Timeline controls disabled in runner"

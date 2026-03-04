@@ -3,9 +3,14 @@
 
 extends Node2D
 
+const HUD_HEIGHT: float = 70.0
+const HUD_LEFT_MARGIN: float = 20.0
+const HUD_TOP_MARGIN: float = 14.0
+
 var demo_scenes: Array[String] = []
 
-var seconds_per_demo: float = 5.0
+var seconds_per_demo: float = 7.0
+var max_seconds_per_demo: float = 12.0
 var auto_advance: bool = true
 
 var index: int = 0
@@ -15,48 +20,37 @@ var active_demo_path: String = ""
 
 var hud_layer: CanvasLayer
 var hud_panel: ColorRect
-var title_label: Label
 var scene_label: Label
 var hint_label: Label
-var check_label: Label
 var _runner_logs: Array[String] = []
 var _phase_counts: Dictionary = {}
 
 
 func _ready() -> void:
+	var root_viewport := get_viewport()
+	if root_viewport != null:
+		root_viewport.size_changed.connect(_on_root_viewport_size_changed)
+
 	hud_layer = CanvasLayer.new()
 	hud_layer.layer = 100
 	add_child(hud_layer)
 
 	hud_panel = ColorRect.new()
-	hud_panel.color = Color(0.02, 0.03, 0.05, 0.88)
+	hud_panel.color = Color(0.02, 0.03, 0.05, 0.0)
 	hud_panel.position = Vector2.ZERO
-	hud_panel.size = Vector2(1400.0, 140.0)
+	hud_panel.size = Vector2(1400.0, HUD_HEIGHT)
 	hud_layer.add_child(hud_panel)
 
-	title_label = Label.new()
-	title_label.text = "Port Demos Runner"
-	title_label.position = Vector2(16.0, 10.0)
-	title_label.add_theme_font_size_override("font_size", 30)
-	hud_layer.add_child(title_label)
-
 	scene_label = Label.new()
-	scene_label.position = Vector2(16.0, 52.0)
-	scene_label.add_theme_font_size_override("font_size", 18)
+	scene_label.position = Vector2(HUD_LEFT_MARGIN, HUD_TOP_MARGIN)
+	scene_label.add_theme_font_size_override("font_size", 36)
 	hud_layer.add_child(scene_label)
 
 	hint_label = Label.new()
-	hint_label.text = "Next/Prev Scene: cycle | Enter: reload demo | Reset: toggle auto-run"
-	hint_label.position = Vector2(16.0, 78.0)
+	hint_label.position = Vector2(HUD_LEFT_MARGIN, HUD_TOP_MARGIN + 36.0)
 	hint_label.add_theme_font_size_override("font_size", 14)
 	hud_layer.add_child(hint_label)
-
-	check_label = Label.new()
-	check_label.position = Vector2(16.0, 102.0)
-	check_label.add_theme_font_size_override("font_size", 13)
-	check_label.modulate = Color(0.82, 0.92, 1.0)
-	check_label.text = "Checks: (none yet)"
-	hud_layer.add_child(check_label)
+	_sync_demo_viewport_size()
 
 	demo_scenes = PortDemoCatalog.get_runner_demos()
 	_load_demo(index)
@@ -66,6 +60,10 @@ func _process(delta: float) -> void:
 	if not auto_advance:
 		return
 	elapsed += delta
+	if elapsed < seconds_per_demo:
+		return
+	if _demo_is_still_playing() and elapsed < max_seconds_per_demo:
+		return
 	if elapsed >= seconds_per_demo:
 		_next_demo()
 
@@ -117,6 +115,7 @@ func _load_demo(new_index: int) -> void:
 	add_child(active_demo)
 	if active_demo is CanvasItem:
 		(active_demo as CanvasItem).z_index = -10
+	_suppress_demo_caption_labels(active_demo)
 
 	_run_lightweight_checks(active_demo_path)
 	_refresh_labels()
@@ -125,18 +124,21 @@ func _load_demo(new_index: int) -> void:
 func _refresh_labels() -> void:
 	if demo_scenes.is_empty():
 		scene_label.text = "No demos configured."
+		hint_label.text = "Controls: Next/Prev cycle | Enter reload demo | Reset auto-run"
 		return
-	scene_label.text = "%d/%d | %s | auto:%s | %.1fs" % [
+	scene_label.text = "%d/%d | %s" % [
 		index + 1,
 		demo_scenes.size(),
-		demo_scenes[index],
-		"on" if auto_advance else "off",
-		seconds_per_demo
+		_scene_title_for_path(demo_scenes[index]),
 	]
-	var phase := _phase_tag_for_scene(demo_scenes[index])
-	var covered := _phase_coverage_summary()
-	scene_label.text += " | phase:%s | %s" % [phase, covered]
-	check_label.text = "Checks: %s" % (_runner_logs[-1] if not _runner_logs.is_empty() else "(none yet)")
+	var controls := "Controls: Next/Prev cycle | Enter reload demo | Reset auto-run (%s)" % [
+		"on" if auto_advance else "off"
+	]
+	if active_demo != null and active_demo.has_method("get_runner_controls_hint"):
+		var demo_controls := str(active_demo.call("get_runner_controls_hint")).strip_edges()
+		if not demo_controls.is_empty():
+			controls += " | %s" % demo_controls
+	hint_label.text = controls
 
 
 func _run_lightweight_checks(path: String) -> void:
@@ -191,3 +193,44 @@ func _record_phase_marker(path: String) -> void:
 func _phase_coverage_summary() -> String:
 	var ratio := PortPhaseCoverage.coverage_ratio(_phase_counts)
 	return "phase6_visual=%d/%d" % [ratio.x, ratio.y]
+
+
+func _on_root_viewport_size_changed() -> void:
+	_sync_demo_viewport_size()
+
+
+func _sync_demo_viewport_size() -> void:
+	if hud_panel != null:
+		hud_panel.size.x = maxf(1.0, get_viewport_rect().size.x)
+
+
+func _scene_title_for_path(path: String) -> String:
+	var base := path.get_file().get_basename()
+	for suffix in ["_parity_demo", "_demo", "_port"]:
+		if base.ends_with(suffix):
+			base = base.substr(0, base.length() - suffix.length())
+			break
+	var words := base.split("_", false)
+	var pretty_words: Array[String] = []
+	for word in words:
+		pretty_words.append(String(word).capitalize())
+	return " ".join(pretty_words)
+
+
+func _demo_is_still_playing() -> bool:
+	if active_demo == null:
+		return false
+	if active_demo.has_method("is_playing"):
+		return bool(active_demo.call("is_playing"))
+	return false
+
+
+func _suppress_demo_caption_labels(scene_root: Node) -> void:
+	if scene_root == null:
+		return
+	for child in scene_root.get_children():
+		if child is Label:
+			var label := child as Label
+			# Most demo-local overlays use a top-left caption label around (16, 12).
+			if label.position.x <= 24.0 and label.position.y <= 20.0:
+				label.visible = false

@@ -40,8 +40,9 @@ func _build_brace() -> void:
 	brace = PortBrace2D.new(terms[2], PortBrace2D.BraceSide.BOTTOM)
 	brace.color = Color(0.42, 0.94, 1.0)
 	brace.padding = 14.0
-	brace.span_extra = 14.0
-	brace.brace_depth = 24.0
+	brace.span_extra = 20.0
+	brace.minimum_span = 84.0
+	brace.brace_depth = 28.0
 	brace.stroke_width = 3.0
 	add_child(brace)
 
