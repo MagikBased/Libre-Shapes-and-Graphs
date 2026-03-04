@@ -55,11 +55,11 @@ func set_points(p_vertex: Vector2, p_a: Vector2, p_b: Vector2) -> void:
 
 
 func update_geometry() -> void:
-	var v := _resolve_vertex()
-	var a := _resolve_a()
-	var b := _resolve_b()
-	var va := a - v
-	var vb := b - v
+	var v: Vector2 = _resolve_vertex()
+	var a: Vector2 = _resolve_a()
+	var b: Vector2 = _resolve_b()
+	var va: Vector2 = a - v
+	var vb: Vector2 = b - v
 	if va.length_squared() <= 0.000001 or vb.length_squared() <= 0.000001:
 		return
 
@@ -74,29 +74,29 @@ func update_geometry() -> void:
 
 
 func get_label_anchor(distance: float = 18.0) -> Vector2:
-	var mid := _start_angle + _sweep_angle * 0.5
+	var mid: float = _start_angle + _sweep_angle * 0.5
 	return _vertex_world + Vector2(cos(mid), sin(mid)) * (radius + distance)
 
 
 func _draw() -> void:
-	var local_center := to_local(_vertex_world)
-	var step_count := maxi(6, int(ceil(absf(_sweep_angle) * 16.0)))
-	var points := PackedVector2Array()
+	var local_center: Vector2 = to_local(_vertex_world)
+	var step_count: int = maxi(6, int(ceil(absf(_sweep_angle) * 16.0)))
+	var points: PackedVector2Array = PackedVector2Array()
 	for i in range(step_count + 1):
-		var t := float(i) / float(step_count)
-		var ang := _start_angle + _sweep_angle * t
+		var t: float = float(i) / float(step_count)
+		var ang: float = _start_angle + _sweep_angle * t
 		points.append(local_center + Vector2(cos(ang), sin(ang)) * radius)
 
 	for i in range(points.size() - 1):
 		draw_line(points[i], points[i + 1], color, stroke_width)
 
 	if show_right_angle_elbow and absf(absf(_sweep_angle) - PI * 0.5) <= 0.06:
-		var u0 := Vector2(cos(_start_angle), sin(_start_angle))
-		var u1 := Vector2(cos(_start_angle + _sweep_angle), sin(_start_angle + _sweep_angle))
-		var d := radius * elbow_scale
-		var p0 := local_center + u0 * d
-		var p1 := p0 + u1 * d
-		var p2 := local_center + u1 * d
+		var u0: Vector2 = Vector2(cos(_start_angle), sin(_start_angle))
+		var u1: Vector2 = Vector2(cos(_start_angle + _sweep_angle), sin(_start_angle + _sweep_angle))
+		var d: float = radius * elbow_scale
+		var p0: Vector2 = local_center + u0 * d
+		var p1: Vector2 = p0 + u1 * d
+		var p2: Vector2 = local_center + u1 * d
 		draw_line(p0, p1, color, stroke_width)
 		draw_line(p1, p2, color, stroke_width)
 
@@ -120,6 +120,6 @@ func _resolve_b() -> Vector2:
 
 
 func _signed_angle(a: Vector2, b: Vector2) -> float:
-	var det := a.x * b.y - a.y * b.x
-	var dot := a.dot(b)
+	var det: float = a.x * b.y - a.y * b.x
+	var dot: float = a.dot(b)
 	return atan2(det, dot)

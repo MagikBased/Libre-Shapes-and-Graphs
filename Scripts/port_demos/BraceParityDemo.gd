@@ -77,7 +77,7 @@ func _run_focus_sequence() -> void:
 
 
 func _focus_term(index: int, label_text: String) -> void:
-	var i := clampi(index, 0, terms.size() - 1)
+	var i: int = clampi(index, 0, terms.size() - 1)
 	brace.set_target(terms[i])
 	brace_label.text = label_text
 	play(PortFadeToColor.new(terms[i], terms[i].color, Color(0.44, 0.95, 1.0), 0.22, &"smooth"))

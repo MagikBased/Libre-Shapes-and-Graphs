@@ -1,7 +1,7 @@
 class_name PortPhaseCoverage
 extends RefCounted
 
-const VISUAL_PHASE_TAGS: Array[String] = ["P6.1", "P6.2", "P6.3", "P6.4", "P6.5", "P6.6", "P6.10", "P6.11", "P6.12", "P6.13", "P6.14", "P6.15", "P6.16", "P6.17", "P6.18", "P6.19", "P6.20", "P6.21", "P6.22", "P6.23", "P6.24", "P6.25", "P6.26", "P6.27", "P6.28", "P6.29", "P6.30", "P6.31", "P6.32", "P6.33", "P6.34", "P6.35", "P6.36", "P6.37", "P6.38", "P6.39", "P6.40", "P6.41", "P6.42", "P6.43", "P6.44", "P6.45", "P6.46", "P6.47", "P6.48", "P6.49"]
+const VISUAL_PHASE_TAGS: Array[String] = ["P6.1", "P6.2", "P6.3", "P6.4", "P6.5", "P6.6", "P6.10", "P6.11", "P6.12", "P6.13", "P6.14", "P6.15", "P6.16", "P6.17", "P6.18", "P6.19", "P6.20", "P6.21", "P6.22", "P6.23", "P6.24", "P6.25", "P6.26", "P6.27", "P6.28", "P6.29", "P6.30", "P6.31", "P6.32", "P6.33", "P6.34", "P6.35", "P6.36", "P6.37", "P6.38", "P6.39", "P6.40", "P6.41", "P6.42", "P6.43", "P6.44", "P6.45", "P6.46", "P6.47", "P6.48", "P6.49", "P6.50", "P6.51", "P6.52", "P6.53", "P6.54", "P6.55", "P6.56", "P6.57", "P6.58", "P6.59", "P6.60", "P6.61", "P6.62", "P6.63", "P6.64", "P6.65", "P6.66", "P6.67", "P6.68", "P6.69", "P6.70", "P6.71", "P6.72"]
 const TOOLING_PHASE_TAGS: Array[String] = ["P6.7", "P6.8", "P6.9"]
 const FULL_PHASE_TAGS: Array[String] = [
 	"P6.1",
@@ -53,12 +53,38 @@ const FULL_PHASE_TAGS: Array[String] = [
 	"P6.47",
 	"P6.48",
 	"P6.49",
+	"P6.50",
+	"P6.51",
+	"P6.52",
+	"P6.53",
+	"P6.54",
+	"P6.55",
+	"P6.56",
+	"P6.57",
+	"P6.58",
+	"P6.59",
+	"P6.60",
+	"P6.61",
+	"P6.62",
+	"P6.63",
+	"P6.64",
+	"P6.65",
+	"P6.66",
+	"P6.67",
+	"P6.68",
+	"P6.69",
+	"P6.70",
+	"P6.71",
+	"P6.72",
 ]
 
 static func wanted_phase_tags(include_tooling: bool = false) -> Array[String]:
+	var out: Array[String] = []
 	if include_tooling:
-		return FULL_PHASE_TAGS.duplicate()
-	return VISUAL_PHASE_TAGS.duplicate()
+		out.append_array(FULL_PHASE_TAGS)
+		return out
+	out.append_array(VISUAL_PHASE_TAGS)
+	return out
 
 
 static func phase_tag_for_scene(path: String) -> String:
@@ -154,6 +180,52 @@ static func phase_tag_for_scene(path: String) -> String:
 		return "P6.48"
 	if path.ends_with("bisection_iteration_parity_demo.tscn"):
 		return "P6.49"
+	if path.ends_with("false_position_iteration_parity_demo.tscn"):
+		return "P6.50"
+	if path.ends_with("fixed_point_iteration_parity_demo.tscn"):
+		return "P6.51"
+	if path.ends_with("secant_iteration_parity_demo.tscn"):
+		return "P6.52"
+	if path.ends_with("iteration_sequence_parity_demo.tscn"):
+		return "P6.53"
+	if path.ends_with("orbit_diagram_parity_demo.tscn"):
+		return "P6.54"
+	if path.ends_with("lyapunov_plot_parity_demo.tscn"):
+		return "P6.55"
+	if path.ends_with("convergence_map_parity_demo.tscn"):
+		return "P6.56"
+	if path.ends_with("return_map_parity_demo.tscn"):
+		return "P6.57"
+	if path.ends_with("invariant_density_parity_demo.tscn"):
+		return "P6.58"
+	if path.ends_with("recurrence_plot_parity_demo.tscn"):
+		return "P6.59"
+	if path.ends_with("symbolic_dynamics_parity_demo.tscn"):
+		return "P6.60"
+	if path.ends_with("autocorrelation_parity_demo.tscn"):
+		return "P6.61"
+	if path.ends_with("power_spectrum_parity_demo.tscn"):
+		return "P6.62"
+	if path.ends_with("block_entropy_parity_demo.tscn"):
+		return "P6.63"
+	if path.ends_with("delayed_mutual_info_parity_demo.tscn"):
+		return "P6.64"
+	if path.ends_with("permutation_entropy_parity_demo.tscn"):
+		return "P6.65"
+	if path.ends_with("first_return_time_parity_demo.tscn"):
+		return "P6.66"
+	if path.ends_with("recurrence_rate_curve_parity_demo.tscn"):
+		return "P6.67"
+	if path.ends_with("entropy_rate_parity_demo.tscn"):
+		return "P6.68"
+	if path.ends_with("return_time_cdf_parity_demo.tscn"):
+		return "P6.69"
+	if path.ends_with("return_time_survival_parity_demo.tscn"):
+		return "P6.70"
+	if path.ends_with("return_time_moments_parity_demo.tscn"):
+		return "P6.71"
+	if path.ends_with("return_time_quantiles_parity_demo.tscn"):
+		return "P6.72"
 	if path.ends_with("port_demos_runner.tscn"):
 		return "P6.7"
 	if path.ends_with("phase6_coverage_report.tscn"):
@@ -164,8 +236,8 @@ static func phase_tag_for_scene(path: String) -> String:
 
 
 static func coverage_ratio(phase_counts: Dictionary, include_tooling: bool = false) -> Vector2i:
-	var wanted := wanted_phase_tags(include_tooling)
-	var hit := 0
+	var wanted: Array[String] = wanted_phase_tags(include_tooling)
+	var hit: int = 0
 	for p in wanted:
 		if int(phase_counts.get(p, 0)) > 0:
 			hit += 1

@@ -30,7 +30,7 @@ func on_begin() -> void:
 func interpolate(alpha: float) -> void:
 	if target == null:
 		return
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 	target.scale = _start_scale.lerp(_start_scale * scale_factor, t)
 	target.modulate = _start_color.lerp(color_highlight, t)
 

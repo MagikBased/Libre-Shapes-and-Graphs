@@ -51,7 +51,7 @@ func set_reveal_progress(progress: float) -> void:
 func get_visible_text() -> String:
 	if _label == null:
 		return ""
-	var n := int(floor(float(text.length()) * reveal_progress))
+	var n: int = int(floor(float(text.length()) * reveal_progress))
 	n = clampi(n, 0, text.length())
 	return text.substr(0, n)
 
@@ -65,5 +65,5 @@ func get_string_bounds() -> Rect2:
 func _update_reveal() -> void:
 	if _label == null:
 		return
-	var total := text.length()
+	var total: int = text.length()
 	_label.visible_characters = int(round(float(total) * reveal_progress))

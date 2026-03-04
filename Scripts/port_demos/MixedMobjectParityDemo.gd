@@ -60,25 +60,25 @@ func _ready() -> void:
 
 
 func _update_svg_position(target: PortObject2D, _delta: float) -> void:
-	var t := tracker.get_value()
-	var local_point := PortPathUtils.sample_polyline(trail.points, t, false)
+	var t: float = tracker.get_value()
+	var local_point: Vector2 = PortPathUtils.sample_polyline(trail.points, t, false)
 	target.position = trail.to_global(local_point) + Vector2(0.0, -90.0)
 
 
 func _update_image_position(target: PortObject2D, _delta: float) -> void:
-	var t := clampf(tracker.get_value() + 0.12, 0.0, 1.0)
-	var local_point := PortPathUtils.sample_polyline(trail.points, t, false)
+	var t: float = clampf(tracker.get_value() + 0.12, 0.0, 1.0)
+	var local_point: Vector2 = PortPathUtils.sample_polyline(trail.points, t, false)
 	target.position = trail.to_global(local_point) + Vector2(0.0, 90.0)
 
 
 func _make_checker_texture(width: int, height: int) -> Texture2D:
-	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
+	var image: Image = Image.create(width, height, false, Image.FORMAT_RGBA8)
 	for y in range(height):
 		for x in range(width):
-			var checker_x := int(floor(float(x) / 12.0))
-			var checker_y := int(floor(float(y) / 12.0))
-			var dark := ((checker_x + checker_y) % 2) == 0
-			var c := Color(0.18, 0.23, 0.33) if dark else Color(0.8, 0.9, 1.0)
+			var checker_x: int = int(floor(float(x) / 12.0))
+			var checker_y: int = int(floor(float(y) / 12.0))
+			var dark: bool = ((checker_x + checker_y) % 2) == 0
+			var c: Color = Color(0.18, 0.23, 0.33) if dark else Color(0.8, 0.9, 1.0)
 			image.set_pixel(x, y, c)
 	return ImageTexture.create_from_image(image)
 

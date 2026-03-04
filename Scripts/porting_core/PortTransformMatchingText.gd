@@ -54,7 +54,7 @@ func on_begin() -> void:
 func interpolate(alpha: float) -> void:
 	if source == null or destination == null:
 		return
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 
 	var s := _source_start_modulate
 	s.a = _source_start_modulate.a * (1.0 - t)

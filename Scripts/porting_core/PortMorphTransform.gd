@@ -30,7 +30,7 @@ func on_begin() -> void:
 	_source_start_modulate = source.modulate
 	_destination_start_modulate = destination.modulate
 
-	var dst_mod := destination.modulate
+	var dst_mod: Color = destination.modulate
 	dst_mod.a = 0.0
 	destination.modulate = dst_mod
 
@@ -42,17 +42,17 @@ func interpolate(alpha: float) -> void:
 	if source == null or destination == null:
 		return
 
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 	_crossfade(t)
 	_interpolate_polygons(t)
 
 
 func _crossfade(t: float) -> void:
-	var src := _source_start_modulate
+	var src: Color = _source_start_modulate
 	src.a = _source_start_modulate.a * (1.0 - t)
 	source.modulate = src
 
-	var dst := _destination_start_modulate
+	var dst: Color = _destination_start_modulate
 	dst.a = _destination_start_modulate.a * t
 	destination.modulate = dst
 
@@ -78,8 +78,8 @@ func _interpolate_polygons(t: float) -> void:
 	if not (source is Polygon2D and destination is Polygon2D):
 		return
 
-	var source_poly := source as Polygon2D
-	var morphed := PackedVector2Array()
+	var source_poly: Polygon2D = source as Polygon2D
+	var morphed: PackedVector2Array = PackedVector2Array()
 	morphed.resize(_matched_vertex_count)
 
 	for i in range(_matched_vertex_count):
@@ -89,18 +89,18 @@ func _interpolate_polygons(t: float) -> void:
 
 
 func _resample_vertices(points: PackedVector2Array, target_count: int) -> PackedVector2Array:
-	var result := PackedVector2Array()
+	var result: PackedVector2Array = PackedVector2Array()
 	if points.is_empty():
 		return result
 	if points.size() == target_count:
 		return points
 
 	result.resize(target_count)
-	var n := points.size()
+	var n: int = points.size()
 	for i in range(target_count):
-		var pos := float(i) * float(n) / float(target_count)
-		var a := int(floor(pos)) % n
-		var b := (a + 1) % n
+		var pos: float = float(i) * float(n) / float(target_count)
+		var a: int = int(floor(pos)) % n
+		var b: int = (a + 1) % n
 		var local_t: float = pos - floor(pos)
 		result[i] = points[a].lerp(points[b], local_t)
 	return result

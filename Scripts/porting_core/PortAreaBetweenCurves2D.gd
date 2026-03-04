@@ -101,6 +101,8 @@ func _draw() -> void:
 		var t1: Vector2 = _top_points[i + 1]
 		var b0: Vector2 = _bottom_points[i]
 		var b1: Vector2 = _bottom_points[i + 1]
+		if not (_is_valid_point(t0) and _is_valid_point(t1) and _is_valid_point(b0) and _is_valid_point(b1)):
+			continue
 
 		var tri_a: PackedVector2Array = PackedVector2Array([t0, t1, b0])
 		var tri_b: PackedVector2Array = PackedVector2Array([t1, b1, b0])
@@ -110,5 +112,15 @@ func _draw() -> void:
 			draw_colored_polygon(tri_b, fill)
 
 	for i in range(used - 1):
-		draw_line(_top_points[i], _top_points[i + 1], top_color, stroke_width)
-		draw_line(_bottom_points[i], _bottom_points[i + 1], bottom_color, stroke_width)
+		var top_a: Vector2 = _top_points[i]
+		var top_b: Vector2 = _top_points[i + 1]
+		var bottom_a: Vector2 = _bottom_points[i]
+		var bottom_b: Vector2 = _bottom_points[i + 1]
+		if _is_valid_point(top_a) and _is_valid_point(top_b):
+			draw_line(top_a, top_b, top_color, stroke_width)
+		if _is_valid_point(bottom_a) and _is_valid_point(bottom_b):
+			draw_line(bottom_a, bottom_b, bottom_color, stroke_width)
+
+
+func _is_valid_point(p: Vector2) -> bool:
+	return is_finite(p.x) and is_finite(p.y)

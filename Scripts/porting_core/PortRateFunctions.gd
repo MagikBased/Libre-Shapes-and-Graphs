@@ -67,7 +67,7 @@ static func exponential_decay(t: float, half_life: float = 0.1) -> float:
 
 
 static func apply(rate_func_name: StringName, t: float) -> float:
-	var clamped_t := clampf(t, 0.0, 1.0)
+	var clamped_t: float = clampf(t, 0.0, 1.0)
 	match String(rate_func_name).to_lower():
 		"linear":
 			return linear(clamped_t)

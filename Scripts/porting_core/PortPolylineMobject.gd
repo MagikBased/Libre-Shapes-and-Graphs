@@ -20,12 +20,12 @@ func set_draw_progress(progress: float) -> void:
 func _draw() -> void:
 	if points.size() < 2:
 		return
-	var max_segments := points.size() if closed else points.size() - 1
-	var draw_segments := maxi(0, int(floor(float(max_segments) * draw_progress)))
+	var max_segments: int = points.size() if closed else points.size() - 1
+	var draw_segments: int = maxi(0, int(floor(float(max_segments) * draw_progress)))
 	if draw_segments <= 0:
 		return
 
 	for i in range(draw_segments):
-		var a := points[i]
-		var b := points[(i + 1) % points.size()]
+		var a: Vector2 = points[i]
+		var b: Vector2 = points[(i + 1) % points.size()]
 		draw_line(a, b, color, stroke_width)

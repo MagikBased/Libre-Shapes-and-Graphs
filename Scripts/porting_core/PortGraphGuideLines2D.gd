@@ -22,17 +22,17 @@ func set_draw_progress(progress: float) -> void:
 func _draw() -> void:
 	if axes == null:
 		return
-	var p := axes.c2p(graph_point.x, graph_point.y)
-	var t := clampf(draw_progress, 0.0, 1.0)
+	var p: Vector2 = axes.c2p(graph_point.x, graph_point.y)
+	var t: float = clampf(draw_progress, 0.0, 1.0)
 
 	if show_horizontal:
-		var a := axes.c2p(axes.x_min, graph_point.y)
-		var b := p
-		var end := a.lerp(b, t)
+		var a: Vector2 = axes.c2p(axes.x_min, graph_point.y)
+		var b: Vector2 = p
+		var end: Vector2 = a.lerp(b, t)
 		draw_line(a, end, color, stroke_width)
 
 	if show_vertical:
-		var c := axes.c2p(graph_point.x, axes.y_min)
-		var d := p
-		var vend := c.lerp(d, t)
+		var c: Vector2 = axes.c2p(graph_point.x, axes.y_min)
+		var d: Vector2 = p
+		var vend: Vector2 = c.lerp(d, t)
 		draw_line(c, vend, color, stroke_width)

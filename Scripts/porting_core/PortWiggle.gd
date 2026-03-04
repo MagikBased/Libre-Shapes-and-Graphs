@@ -33,7 +33,7 @@ func on_begin() -> void:
 func interpolate(alpha: float) -> void:
 	if target == null:
 		return
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 	var envelope := PortRateFunctions.there_and_back(t)
 	var phase := sin(TAU * wiggles * t)
 	target.rotation = _start_rotation + rotation_amplitude * envelope * phase

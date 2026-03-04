@@ -18,7 +18,7 @@ func _init(
 func on_begin() -> void:
 	if target == null:
 		return
-	var camera := target as Camera2D
+	var camera: Camera2D = target as Camera2D
 	if camera == null:
 		return
 	_start_zoom = camera.zoom
@@ -27,8 +27,8 @@ func on_begin() -> void:
 func interpolate(alpha: float) -> void:
 	if target == null:
 		return
-	var camera := target as Camera2D
+	var camera: Camera2D = target as Camera2D
 	if camera == null:
 		return
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 	camera.zoom = _start_zoom.lerp(_end_zoom, t)

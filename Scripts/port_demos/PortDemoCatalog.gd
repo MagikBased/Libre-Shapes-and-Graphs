@@ -60,6 +60,29 @@ const VISUAL_2D_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/graph_inflection_parity_demo.tscn",
 	"res://Scenes/port_demos/newton_iteration_parity_demo.tscn",
 	"res://Scenes/port_demos/bisection_iteration_parity_demo.tscn",
+	"res://Scenes/port_demos/false_position_iteration_parity_demo.tscn",
+	"res://Scenes/port_demos/fixed_point_iteration_parity_demo.tscn",
+	"res://Scenes/port_demos/secant_iteration_parity_demo.tscn",
+	"res://Scenes/port_demos/iteration_sequence_parity_demo.tscn",
+	"res://Scenes/port_demos/orbit_diagram_parity_demo.tscn",
+	"res://Scenes/port_demos/lyapunov_plot_parity_demo.tscn",
+	"res://Scenes/port_demos/convergence_map_parity_demo.tscn",
+	"res://Scenes/port_demos/return_map_parity_demo.tscn",
+	"res://Scenes/port_demos/invariant_density_parity_demo.tscn",
+	"res://Scenes/port_demos/recurrence_plot_parity_demo.tscn",
+	"res://Scenes/port_demos/symbolic_dynamics_parity_demo.tscn",
+	"res://Scenes/port_demos/autocorrelation_parity_demo.tscn",
+	"res://Scenes/port_demos/power_spectrum_parity_demo.tscn",
+	"res://Scenes/port_demos/block_entropy_parity_demo.tscn",
+	"res://Scenes/port_demos/delayed_mutual_info_parity_demo.tscn",
+	"res://Scenes/port_demos/permutation_entropy_parity_demo.tscn",
+	"res://Scenes/port_demos/first_return_time_parity_demo.tscn",
+	"res://Scenes/port_demos/recurrence_rate_curve_parity_demo.tscn",
+	"res://Scenes/port_demos/entropy_rate_parity_demo.tscn",
+	"res://Scenes/port_demos/return_time_cdf_parity_demo.tscn",
+	"res://Scenes/port_demos/return_time_survival_parity_demo.tscn",
+	"res://Scenes/port_demos/return_time_moments_parity_demo.tscn",
+	"res://Scenes/port_demos/return_time_quantiles_parity_demo.tscn",
 	"res://Scenes/port_demos/group_layout_parity_demo.tscn",
 	"res://Scenes/port_demos/surrounding_rectangle_parity_demo.tscn",
 	"res://Scenes/port_demos/brace_parity_demo.tscn",
@@ -85,19 +108,24 @@ const TOOL_DEMOS: Array[String] = [
 
 
 static func get_visual_demos() -> Array[String]:
-	var paths := VISUAL_2D_DEMOS.duplicate()
+	var paths: Array[String] = []
+	paths.append_array(VISUAL_2D_DEMOS)
 	paths.append_array(VISUAL_3D_DEMOS)
 	return paths
 
 
 static func get_index_demos() -> Array[String]:
-	var paths := get_visual_demos()
-	paths.append_array(TOOL_DEMOS.filter(func(p): return p != "res://Scenes/port_demos/port_demos_index.tscn"))
+	var paths: Array[String] = get_visual_demos()
+	for p in TOOL_DEMOS:
+		if p != "res://Scenes/port_demos/port_demos_index.tscn":
+			paths.append(p)
 	return paths
 
 
 static func get_runner_demos() -> Array[String]:
-	return VISUAL_2D_DEMOS.duplicate()
+	var paths: Array[String] = []
+	paths.append_array(VISUAL_2D_DEMOS)
+	return paths
 
 
 static func get_smoke_demos() -> Array[String]:

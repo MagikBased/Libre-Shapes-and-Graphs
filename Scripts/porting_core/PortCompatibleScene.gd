@@ -197,17 +197,26 @@ func _coerce_to_animation(candidate: Variant) -> PortAnimation:
 
 func _ensure_scene_camera() -> Camera2D:
 	if scene_camera != null and is_instance_valid(scene_camera):
+		_make_scene_camera_current_safe()
 		return scene_camera
 
 	scene_camera = Camera2D.new()
 	scene_camera.name = "PortSceneCamera2D"
 	scene_camera.enabled = true
 	add_child(scene_camera)
-	if scene_camera.is_inside_tree():
-		scene_camera.make_current()
-	else:
-		scene_camera.call_deferred("make_current")
+	call_deferred("_make_scene_camera_current_safe")
 	return scene_camera
+
+
+func _make_scene_camera_current_safe() -> void:
+	if scene_camera == null or not is_instance_valid(scene_camera):
+		return
+	if not scene_camera.enabled:
+		scene_camera.enabled = true
+	if not scene_camera.is_inside_tree():
+		call_deferred("_make_scene_camera_current_safe")
+		return
+	scene_camera.make_current()
 
 
 func _compute_fit_rect(targets: Array, padding_ratio: float) -> Rect2:

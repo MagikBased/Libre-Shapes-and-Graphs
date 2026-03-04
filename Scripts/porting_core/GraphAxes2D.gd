@@ -178,8 +178,8 @@ func _draw_grid() -> void:
 
 
 func _draw_axes() -> void:
-	var x0 := clampf(0.0, x_min, x_max)
-	var y0 := clampf(0.0, y_min, y_max)
+	var x0: float = clampf(0.0, x_min, x_max)
+	var y0: float = clampf(0.0, y_min, y_max)
 
 	var x_axis_a := graph_to_local(Vector2(x_min, y0))
 	var x_axis_b := graph_to_local(Vector2(x_max, y0))
@@ -232,8 +232,8 @@ func add_coordinate_labels(font_size: int = 14, include_zero: bool = false) -> v
 	clear_coordinate_labels()
 	_labels_enabled = true
 
-	var x0 := clampf(0.0, x_min, x_max)
-	var y0 := clampf(0.0, y_min, y_max)
+	var x0: float = clampf(0.0, x_min, x_max)
+	var y0: float = clampf(0.0, y_min, y_max)
 
 	var x := x_min
 	while x <= x_max + 0.0001:

@@ -97,7 +97,7 @@ func _load_demo(new_index: int) -> void:
 		active_demo.queue_free()
 		active_demo = null
 
-	var path := demo_scenes[index]
+	var path: String = demo_scenes[index]
 	active_demo_path = path
 	_record_phase_marker(path)
 	if not ResourceLoader.exists(path):
@@ -105,7 +105,7 @@ func _load_demo(new_index: int) -> void:
 		_append_check_log("ERROR missing demo resource: %s" % path)
 		return
 
-	var packed := load(path) as PackedScene
+	var packed: PackedScene = load(path) as PackedScene
 	if packed == null:
 		scene_label.text = "Invalid scene: %s" % path
 		_append_check_log("ERROR invalid packed scene: %s" % path)
@@ -131,11 +131,11 @@ func _refresh_labels() -> void:
 		demo_scenes.size(),
 		_scene_title_for_path(demo_scenes[index]),
 	]
-	var controls := "Controls: Next/Prev cycle | Enter reload demo | Reset auto-run (%s)" % [
+	var controls: String = "Controls: Next/Prev cycle | Enter reload demo | Reset auto-run (%s)" % [
 		"on" if auto_advance else "off"
 	]
 	if active_demo != null and active_demo.has_method("get_runner_controls_hint"):
-		var demo_controls := str(active_demo.call("get_runner_controls_hint")).strip_edges()
+		var demo_controls: String = str(active_demo.call("get_runner_controls_hint")).strip_edges()
 		if not demo_controls.is_empty():
 			controls += " | %s" % demo_controls
 	hint_label.text = controls
@@ -159,7 +159,7 @@ func _validate_camera_helper_scene(scene_root: Node, path: String) -> void:
 		push_warning("Runner check: camera helper method missing in %s" % path)
 		return
 
-	var camera = scene_root.call("get_scene_camera")
+	var camera: Variant = scene_root.call("get_scene_camera")
 	if camera == null or not (camera is Camera2D):
 		_append_check_log("ERROR %s: camera helper returned invalid camera" % path)
 		push_error("Runner check: invalid camera in %s" % path)
@@ -191,7 +191,7 @@ func _record_phase_marker(path: String) -> void:
 
 
 func _phase_coverage_summary() -> String:
-	var ratio := PortPhaseCoverage.coverage_ratio(_phase_counts)
+	var ratio: Vector2i = PortPhaseCoverage.coverage_ratio(_phase_counts)
 	return "phase6_visual=%d/%d" % [ratio.x, ratio.y]
 
 
@@ -205,7 +205,7 @@ func _sync_demo_viewport_size() -> void:
 
 
 func _scene_title_for_path(path: String) -> String:
-	var base := path.get_file().get_basename()
+	var base: String = path.get_file().get_basename()
 	for suffix in ["_parity_demo", "_demo", "_port"]:
 		if base.ends_with(suffix):
 			base = base.substr(0, base.length() - suffix.length())

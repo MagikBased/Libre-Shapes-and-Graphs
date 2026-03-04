@@ -30,8 +30,8 @@ func update(delta: float) -> void:
 		return
 
 	elapsed += delta
-	var alpha := clampf(elapsed / run_time, 0.0, 1.0)
-	var eased_alpha := PortRateFunctions.apply(rate_func_name, alpha)
+	var alpha: float = clampf(elapsed / run_time, 0.0, 1.0)
+	var eased_alpha: float = PortRateFunctions.apply(rate_func_name, alpha)
 	interpolate(eased_alpha)
 
 	if alpha >= 1.0:

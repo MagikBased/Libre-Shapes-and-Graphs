@@ -25,7 +25,7 @@ func add_members(new_members: Array) -> PortGroup2D:
 
 
 func remove_member(member: Node2D) -> PortGroup2D:
-	var index := members.find(member)
+	var index: int = members.find(member)
 	if index >= 0:
 		members.remove_at(index)
 	return self
@@ -80,10 +80,10 @@ func compute_linear_positions(
 	var out: Array[Vector2] = []
 	if members.is_empty():
 		return out
-	var unit := direction.normalized()
+	var unit: Vector2 = direction.normalized()
 	if unit == Vector2.ZERO:
 		unit = Vector2.RIGHT
-	var start := 0.0
+	var start: float = 0.0
 	if centered:
 		start = -0.5 * spacing * float(members.size() - 1)
 	for i in range(members.size()):
@@ -98,12 +98,12 @@ func compute_grid_positions(
 	centered: bool = true
 ) -> Array[Vector2]:
 	var out: Array[Vector2] = []
-	var n := members.size()
+	var n: int = members.size()
 	if n <= 0:
 		return out
 
-	var resolved_cols := cols
-	var resolved_rows := rows
+	var resolved_cols: int = cols
+	var resolved_rows: int = rows
 	if resolved_rows <= 0 and resolved_cols <= 0:
 		resolved_cols = int(ceil(sqrt(float(n))))
 		resolved_rows = int(ceil(float(n) / float(resolved_cols)))
@@ -116,10 +116,10 @@ func compute_grid_positions(
 
 	resolved_cols = maxi(1, resolved_cols)
 	resolved_rows = maxi(1, resolved_rows)
-	var spacing := Vector2(maxf(1.0, cell_size.x), maxf(1.0, cell_size.y))
-	var used_cols := mini(resolved_cols, n)
-	var used_rows := int(ceil(float(n) / float(resolved_cols)))
-	var offset := Vector2.ZERO
+	var spacing: Vector2 = Vector2(maxf(1.0, cell_size.x), maxf(1.0, cell_size.y))
+	var used_cols: int = mini(resolved_cols, n)
+	var used_rows: int = int(ceil(float(n) / float(resolved_cols)))
+	var offset: Vector2 = Vector2.ZERO
 	if centered:
 		offset = Vector2(
 			0.5 * spacing.x * float(used_cols - 1),
@@ -127,15 +127,15 @@ func compute_grid_positions(
 		)
 
 	for i in range(n):
-		var r := int(floor(float(i) / float(resolved_cols)))
-		var c := i % resolved_cols
-		var p := Vector2(float(c) * spacing.x, float(r) * spacing.y) - offset
+		var r: int = int(floor(float(i) / float(resolved_cols)))
+		var c: int = i % resolved_cols
+		var p: Vector2 = Vector2(float(c) * spacing.x, float(r) * spacing.y) - offset
 		out.append(p)
 	return out
 
 
 func apply_positions(positions: Array[Vector2]) -> PortGroup2D:
-	var count := mini(members.size(), positions.size())
+	var count: int = mini(members.size(), positions.size())
 	for i in range(count):
 		members[i].position = positions[i]
 	return self
@@ -144,11 +144,11 @@ func apply_positions(positions: Array[Vector2]) -> PortGroup2D:
 func move_group_to(center_position: Vector2) -> PortGroup2D:
 	if members.is_empty():
 		return self
-	var centroid := Vector2.ZERO
+	var centroid: Vector2 = Vector2.ZERO
 	for member in members:
 		centroid += member.position
 	centroid /= float(members.size())
-	var delta := center_position - centroid
+	var delta: Vector2 = center_position - centroid
 	for member in members:
 		member.position += delta
 	return self

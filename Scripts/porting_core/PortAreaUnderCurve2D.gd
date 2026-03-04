@@ -29,15 +29,15 @@ func recompute_polygon() -> void:
 		queue_redraw()
 		return
 
-	var n := maxi(8, sample_count)
-	var left := minf(x_min_value, x_max_value)
-	var right := maxf(x_min_value, x_max_value)
+	var n: int = maxi(8, sample_count)
+	var left: float = minf(x_min_value, x_max_value)
+	var right: float = maxf(x_min_value, x_max_value)
 
 	_polygon.append(axes.c2p(left, baseline_y))
 	for i in range(n):
-		var t := float(i) / float(n - 1)
-		var x := lerpf(left, right, t)
-		var y := graph.eval_y(x)
+		var t: float = float(i) / float(n - 1)
+		var x: float = lerpf(left, right, t)
+		var y: float = graph.eval_y(x)
 		_polygon.append(axes.c2p(x, y))
 	_polygon.append(axes.c2p(right, baseline_y))
 
@@ -48,15 +48,15 @@ func _draw() -> void:
 	if _polygon.size() < 3:
 		return
 
-	var max_count := int(ceil(float(_polygon.size()) * draw_progress))
+	var max_count: int = int(ceil(float(_polygon.size()) * draw_progress))
 	max_count = clampi(max_count, 3, _polygon.size())
-	var partial := PackedVector2Array()
+	var partial: PackedVector2Array = PackedVector2Array()
 	for i in range(max_count):
 		partial.append(_polygon[i])
 	if partial.size() < 3:
 		return
 
-	var fill := Color(color.r, color.g, color.b, clampf(fill_alpha, 0.0, 1.0))
+	var fill: Color = Color(color.r, color.g, color.b, clampf(fill_alpha, 0.0, 1.0))
 	draw_colored_polygon(partial, fill)
 	for i in range(partial.size() - 1):
 		draw_line(partial[i], partial[i + 1], color, stroke_width)

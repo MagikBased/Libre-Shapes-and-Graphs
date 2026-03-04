@@ -37,15 +37,15 @@ func interpolate(alpha: float) -> void:
 	if path_points.size() < 2:
 		return
 
-	var a := clampf(alpha, 0.0, 1.0)
-	var sampled_local := PortPathUtils.sample_polyline(path_points, a, closed_path)
+	var a: float = clampf(alpha, 0.0, 1.0)
+	var sampled_local: Vector2 = PortPathUtils.sample_polyline(path_points, a, closed_path)
 	target.global_position = _to_world(sampled_local)
 
 	if orient_to_path:
-		var next_alpha := clampf(a + tangent_epsilon, 0.0, 1.0)
-		var p0 := _to_world(sampled_local)
-		var p1 := _to_world(PortPathUtils.sample_polyline(path_points, next_alpha, closed_path))
-		var tangent := p1 - p0
+		var next_alpha: float = clampf(a + tangent_epsilon, 0.0, 1.0)
+		var p0: Vector2 = _to_world(sampled_local)
+		var p1: Vector2 = _to_world(PortPathUtils.sample_polyline(path_points, next_alpha, closed_path))
+		var tangent: Vector2 = p1 - p0
 		if tangent.length_squared() > 0.000001:
 			target.global_rotation = tangent.angle() + orientation_angle_offset
 

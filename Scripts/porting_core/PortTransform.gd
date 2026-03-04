@@ -54,7 +54,7 @@ func interpolate(alpha: float) -> void:
 	if target == null:
 		return
 
-	var t := clampf(alpha, 0.0, 1.0)
+	var t: float = clampf(alpha, 0.0, 1.0)
 	if animate_position:
 		target.position = start_position.lerp(end_position, t)
 	if animate_scale:

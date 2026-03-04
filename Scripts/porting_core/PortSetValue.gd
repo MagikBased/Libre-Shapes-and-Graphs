@@ -27,7 +27,7 @@ func on_begin() -> void:
 func interpolate(alpha: float) -> void:
 	if target == null:
 		return
-	var t := clampf(alpha, 0.0, 1.0)
-	var value := lerpf(start_value, end_value, t)
+	var t: float = clampf(alpha, 0.0, 1.0)
+	var value: float = lerpf(start_value, end_value, t)
 	if target.has_method("set_value"):
 		target.call("set_value", value)
