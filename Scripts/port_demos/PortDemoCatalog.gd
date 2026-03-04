@@ -153,6 +153,7 @@ const TOOL_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/port_demos_index.tscn",
 	"res://Scenes/port_demos/port_demos_runner.tscn",
 	"res://Scenes/port_demos/port_demos_smoke_check.tscn",
+	"res://Scenes/port_demos/tex_engine_spike_demo.tscn",
 	"res://Scenes/port_demos/render_export_workflow_helper.tscn",
 	"res://Scenes/port_demos/phase6_coverage_report.tscn",
 	"res://Scenes/port_demos/phase8_coverage_report.tscn",

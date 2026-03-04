@@ -1,6 +1,12 @@
 class_name PortTexMobject
 extends PortTextMobject
 
+enum TexEngineMode {
+	SUBSET = 0,
+	EXTERNAL_SPIKE_AUTO = 1,
+	EXTERNAL_SPIKE_ONLY = 2
+}
+
 var _tex_source: String = ""
 var tex_source: String:
 	get:
@@ -9,12 +15,26 @@ var tex_source: String:
 		_tex_source = value
 		text = _render_tex_to_display(_tex_source)
 
+var _tex_engine_mode: int = TexEngineMode.SUBSET
+var tex_engine_mode: int:
+	get:
+		return _tex_engine_mode
+	set(value):
+		_tex_engine_mode = clampi(value, TexEngineMode.SUBSET, TexEngineMode.EXTERNAL_SPIKE_ONLY)
+		text = _render_tex_to_display(_tex_source)
+
 var warn_on_unsupported_commands: bool = false
 var unsupported_command_prefix: String = "?"
 var _last_unsupported_commands: PackedStringArray = PackedStringArray()
 var last_unsupported_commands: PackedStringArray:
 	get:
 		return _last_unsupported_commands
+var _last_engine_report: Dictionary = {
+	"ok": true,
+	"engine": "subset",
+	"mode": "subset",
+	"reason": "default"
+}
 
 
 const GREEK_MAP := {
@@ -135,7 +155,48 @@ const SIMPLE_COMMAND_REPLACEMENTS := {
 
 
 func _render_tex_to_display(src: String) -> String:
-	return _render_tex_fragment(src, true)
+	if src.strip_edges().is_empty():
+		_last_unsupported_commands = PackedStringArray()
+		_last_engine_report = {
+			"ok": true,
+			"engine": "subset",
+			"mode": get_tex_engine_mode_name(),
+			"reason": "empty source",
+			"display_mode": "empty"
+		}
+		return ""
+	var subset_render: String = _render_tex_fragment(src, true)
+	if tex_engine_mode == TexEngineMode.SUBSET:
+		_last_engine_report = {
+			"ok": true,
+			"engine": "subset",
+			"mode": "subset",
+			"reason": "subset selected"
+		}
+		return subset_render
+
+	var force_external: bool = tex_engine_mode == TexEngineMode.EXTERNAL_SPIKE_ONLY
+	var external_report: Dictionary = PortTexToolchainSpike.render_to_display(src, force_external, _build_external_render_options())
+	if bool(external_report.get("ok", false)):
+		_last_engine_report = external_report.duplicate(true)
+		_last_engine_report["mode"] = get_tex_engine_mode_name()
+		# Phase 9.1 spike: keep subset text rendering for stable on-screen output while
+		# emitting external artifact diagnostics through get_last_engine_report().
+		_last_engine_report["display_mode"] = "subset_visual_with_external_artifact"
+		_last_unsupported_commands = PackedStringArray()
+		return subset_render
+
+	if force_external:
+		_last_engine_report = external_report.duplicate(true)
+		_last_engine_report["mode"] = get_tex_engine_mode_name()
+		_last_engine_report["display_mode"] = "external_only_error"
+		return "[tex-engine-error] %s" % str(external_report.get("reason", "unknown"))
+
+	_last_engine_report = external_report.duplicate(true)
+	_last_engine_report["mode"] = get_tex_engine_mode_name()
+	_last_engine_report["display_mode"] = "fallback_to_subset"
+	_last_engine_report["fallback"] = "subset"
+	return subset_render
 
 
 func _render_tex_fragment(src: String, track_unsupported: bool) -> String:
@@ -189,6 +250,32 @@ func get_unsupported_commands_for_source(src: String) -> PackedStringArray:
 
 func has_unsupported_commands() -> bool:
 	return not _last_unsupported_commands.is_empty()
+
+
+func get_last_engine_report() -> Dictionary:
+	return _last_engine_report.duplicate(true)
+
+
+func get_tex_engine_mode_name() -> String:
+	match tex_engine_mode:
+		TexEngineMode.EXTERNAL_SPIKE_AUTO:
+			return "external_spike_auto"
+		TexEngineMode.EXTERNAL_SPIKE_ONLY:
+			return "external_spike_only"
+		_:
+			return "subset"
+
+
+func is_external_engine_available() -> bool:
+	var probe: Dictionary = PortTexToolchainSpike.probe_toolchain()
+	return bool(probe.get("ok", false))
+
+
+func _build_external_render_options() -> Dictionary:
+	return {
+		"font_size": font_size,
+		"engine_mode": get_tex_engine_mode_name()
+	}
 
 
 func _replace_frac(s: String) -> String:
