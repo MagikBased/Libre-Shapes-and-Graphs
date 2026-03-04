@@ -9,7 +9,7 @@ const HUD_TOP_MARGIN: float = 14.0
 
 var demo_scenes: Array[String] = []
 
-var seconds_per_demo: float = 7.0
+var seconds_per_demo: float = 3.0
 var max_seconds_per_demo: float = 12.0
 var auto_advance: bool = true
 
@@ -24,6 +24,8 @@ var scene_label: Label
 var hint_label: Label
 var _runner_logs: Array[String] = []
 var _phase_counts: Dictionary = {}
+var _phase8_counts: Dictionary = {}
+var _completed_cycles: int = 0
 
 
 func _ready() -> void:
@@ -43,7 +45,7 @@ func _ready() -> void:
 
 	scene_label = Label.new()
 	scene_label.position = Vector2(HUD_LEFT_MARGIN, HUD_TOP_MARGIN)
-	scene_label.add_theme_font_size_override("font_size", 36)
+	scene_label.add_theme_font_size_override("font_size", 30)
 	hud_layer.add_child(scene_label)
 
 	hint_label = Label.new()
@@ -62,10 +64,17 @@ func _process(delta: float) -> void:
 	elapsed += delta
 	if elapsed < seconds_per_demo:
 		return
-	if _demo_is_still_playing() and elapsed < max_seconds_per_demo:
-		return
-	if elapsed >= seconds_per_demo:
+	var still_playing: bool = _demo_is_still_playing()
+	if still_playing:
+		# Keep long-running/interactive demos on-screen until they settle,
+		# but never exceed the safety cap.
+		if elapsed < max_seconds_per_demo:
+			return
 		_next_demo()
+		return
+	# If the scene has finished its timeline and minimum hold time elapsed,
+	# move on immediately instead of idling to the old fixed dwell.
+	_next_demo()
 
 
 func _input(event: InputEvent) -> void:
@@ -82,7 +91,11 @@ func _input(event: InputEvent) -> void:
 
 
 func _next_demo() -> void:
-	index = (index + 1) % max(1, demo_scenes.size())
+	var next_index: int = (index + 1) % max(1, demo_scenes.size())
+	if next_index == 0 and not demo_scenes.is_empty():
+		_completed_cycles += 1
+		_print_cycle_summary()
+	index = next_index
 	_load_demo(index)
 
 
@@ -131,7 +144,8 @@ func _refresh_labels() -> void:
 		demo_scenes.size(),
 		_scene_title_for_path(demo_scenes[index]),
 	]
-	var controls: String = "Controls: Next/Prev cycle | Enter reload demo | Reset auto-run (%s)" % [
+	var controls: String = "%s | Controls: Next/Prev cycle | Enter reload demo | Reset auto-run (%s)" % [
+		_phase_coverage_summary(),
 		"on" if auto_advance else "off"
 	]
 	if active_demo != null and active_demo.has_method("get_runner_controls_hint"):
@@ -186,13 +200,34 @@ func _phase_tag_for_scene(path: String) -> String:
 
 
 func _record_phase_marker(path: String) -> void:
-	var phase := _phase_tag_for_scene(path)
+	var phase: String = _phase_tag_for_scene(path)
 	_phase_counts[phase] = int(_phase_counts.get(phase, 0)) + 1
+	var phase8: String = PortPhaseCoverage.phase8_tag_for_scene(path)
+	_phase8_counts[phase8] = int(_phase8_counts.get(phase8, 0)) + 1
 
 
 func _phase_coverage_summary() -> String:
-	var ratio: Vector2i = PortPhaseCoverage.coverage_ratio(_phase_counts)
-	return "phase6_visual=%d/%d" % [ratio.x, ratio.y]
+	var ratio6: Vector2i = PortPhaseCoverage.coverage_ratio(_phase_counts)
+	var ratio8: Vector2i = PortPhaseCoverage.coverage_ratio_phase8(_phase8_counts)
+	return "phase6_visual=%d/%d | phase8_visual=%d/%d" % [ratio6.x, ratio6.y, ratio8.x, ratio8.y]
+
+
+func _build_cycle_summary_block() -> String:
+	var lines: Array[String] = []
+	lines.append("[RunnerSummary]")
+	lines.append("cycles=%d" % _completed_cycles)
+	lines.append("scenes_total=%d" % demo_scenes.size())
+	lines.append("%s" % _phase_coverage_summary())
+	for tag in PortPhaseCoverage.wanted_phase_tags():
+		lines.append("%s=%d" % [tag, int(_phase_counts.get(tag, 0))])
+	for tag8 in PortPhaseCoverage.wanted_phase8_tags():
+		lines.append("%s=%d" % [tag8, int(_phase8_counts.get(tag8, 0))])
+	return "\n".join(lines)
+
+
+func _print_cycle_summary() -> void:
+	print("[PortDemosRunner] Completed demo cycle %d" % _completed_cycles)
+	print(_build_cycle_summary_block())
 
 
 func _on_root_viewport_size_changed() -> void:

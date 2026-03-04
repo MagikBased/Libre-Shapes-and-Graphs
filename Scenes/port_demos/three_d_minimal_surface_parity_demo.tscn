@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/port_demos/ThreeDMinimalSurfaceParityDemo.gd" id="1_g2r7k"]
+
+[node name="ThreeDMinimalSurfaceParityDemo" type="Node3D"]
+script = ExtResource("1_g2r7k")

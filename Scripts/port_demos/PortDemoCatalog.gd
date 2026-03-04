@@ -25,6 +25,7 @@ const VISUAL_2D_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/play_semantics_map_demo.tscn",
 	"res://Scenes/port_demos/camera_framing_demo.tscn",
 	"res://Scenes/port_demos/math_tex_parity_demo.tscn",
+	"res://Scenes/port_demos/tex_engine_parity_demo.tscn",
 	"res://Scenes/port_demos/decimal_number_parity_demo.tscn",
 	"res://Scenes/port_demos/number_line_parity_demo.tscn",
 	"res://Scenes/port_demos/angle_parity_demo.tscn",
@@ -96,6 +97,56 @@ const VISUAL_2D_DEMOS: Array[String] = [
 const VISUAL_3D_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/surface_3d_demo.tscn",
 	"res://Scenes/port_demos/three_d_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_ecosystem_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_group_transform_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_camera_workflow_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_camera_tour_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_animation_effects_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_traced_path_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_vector_field_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_parametric_curve_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_labels_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_grid_plane_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_spherical_grid_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_tube_path_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_lathe_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_extruded_polygon_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_bezier_curve_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_polyhedron_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_implicit_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_field_lines_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_voxel_grid_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_line_graph_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_parametric_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_curve_network_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_cross_section_stack_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_spherical_harmonic_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_surface_contours_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_graph_network_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_helix_bundle_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_torus_knot_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_ruled_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_super_shape_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_klein_bottle_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_seashell_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_mobius_strip_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_minimal_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_dini_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_triply_periodic_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_wave_sphere_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_twisted_torus_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_kuen_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_breather_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_roman_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_whitney_umbrella_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_cross_cap_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_monkey_saddle_surface_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_plucker_conoid_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_hyperbolic_paraboloid_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_dashed_line_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_ribbon_trail_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_primitive_gallery_parity_demo.tscn",
+	"res://Scenes/port_demos/three_d_stacked_systems_parity_demo.tscn",
 ]
 
 const TOOL_DEMOS: Array[String] = [
@@ -104,6 +155,7 @@ const TOOL_DEMOS: Array[String] = [
 	"res://Scenes/port_demos/port_demos_smoke_check.tscn",
 	"res://Scenes/port_demos/render_export_workflow_helper.tscn",
 	"res://Scenes/port_demos/phase6_coverage_report.tscn",
+	"res://Scenes/port_demos/phase8_coverage_report.tscn",
 ]
 
 
@@ -123,9 +175,7 @@ static func get_index_demos() -> Array[String]:
 
 
 static func get_runner_demos() -> Array[String]:
-	var paths: Array[String] = []
-	paths.append_array(VISUAL_2D_DEMOS)
-	return paths
+	return get_visual_demos()
 
 
 static func get_smoke_demos() -> Array[String]:

@@ -19,6 +19,7 @@ var camera_check_warn: int = 0
 var camera_check_fail: int = 0
 var camera_check_messages: Array[String] = []
 var phase_counts: Dictionary = {}
+var phase8_counts: Dictionary = {}
 
 var status_label: Label
 var detail_label: Label
@@ -76,6 +77,7 @@ func _next_scene() -> void:
 				detail_label.text += "\nCamera checks:\n" + "\n".join(camera_check_messages)
 			detail_label.text += "\n\n" + summary_block
 		set_process(false)
+		_print_summary_to_console(summary_block)
 		return
 
 	var path := demo_scenes[index]
@@ -169,13 +171,16 @@ func _phase_tag_for_scene(path: String) -> String:
 
 
 func _record_phase_marker(path: String) -> void:
-	var phase := _phase_tag_for_scene(path)
+	var phase: String = _phase_tag_for_scene(path)
 	phase_counts[phase] = int(phase_counts.get(phase, 0)) + 1
+	var phase8: String = PortPhaseCoverage.phase8_tag_for_scene(path)
+	phase8_counts[phase8] = int(phase8_counts.get(phase8, 0)) + 1
 
 
 func _phase_coverage_summary() -> String:
-	var ratio := PortPhaseCoverage.coverage_ratio(phase_counts)
-	return "phase6_visual=%d/%d" % [ratio.x, ratio.y]
+	var ratio6: Vector2i = PortPhaseCoverage.coverage_ratio(phase_counts)
+	var ratio8: Vector2i = PortPhaseCoverage.coverage_ratio_phase8(phase8_counts)
+	return "phase6_visual=%d/%d | phase8_visual=%d/%d" % [ratio6.x, ratio6.y, ratio8.x, ratio8.y]
 
 
 func _build_summary_block() -> String:
@@ -190,6 +195,13 @@ func _build_summary_block() -> String:
 	lines.append("camera_fail=%d" % camera_check_fail)
 	for tag in PortPhaseCoverage.wanted_phase_tags():
 		lines.append("%s=%d" % [tag, int(phase_counts.get(tag, 0))])
+	for tag8 in PortPhaseCoverage.wanted_phase8_tags():
+		lines.append("%s=%d" % [tag8, int(phase8_counts.get(tag8, 0))])
 	if not failures.is_empty():
 		lines.append("failed_paths=%s" % ",".join(failures))
 	return "\n".join(lines)
+
+
+func _print_summary_to_console(summary_block: String) -> void:
+	print("[PortDemosSmokeCheck] Final summary follows")
+	print(summary_block)

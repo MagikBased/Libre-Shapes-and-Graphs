@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/port_demos/ThreeDTubePathParityDemo.gd" id="1_kj2d1"]
+
+[node name="ThreeDTubePathParityDemo" type="Node3D"]
+script = ExtResource("1_kj2d1")

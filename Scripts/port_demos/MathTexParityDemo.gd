@@ -8,10 +8,12 @@ var eq_b: PortMathTexMobject
 var eq_c: PortMathTexMobject
 var eq_d: PortMathTexMobject
 var eq_e: PortMathTexMobject
+var eq_f: PortMathTexMobject
+var eq_g: PortMathTexMobject
 
 
 func _ready() -> void:
-	_create_caption("Phase 6 text/tex parity demo: expression tokens + multiline + alignment")
+	_create_caption("Phase 7 TeX parity demo: command coverage + matching + fallback diagnostics")
 
 	eq_a = PortMathTexMobject.new()
 	eq_a.set_expressions(["f(x)", "\\frac{1}{2}x^2 + 3x + 1"])
@@ -73,6 +75,36 @@ func _ready() -> void:
 	]
 	add_child(eq_e)
 
+	eq_f = PortMathTexMobject.new()
+	eq_f.set_expressions([
+		"\\operatorname{Var}(X)=\\mathbb{E}[X^2]-\\mathbb{E}[X]^2",
+		"\\overline{x}=\\frac{1}{n}\\sum_{i=1}^{n}x_i+\\unknowncmd{z}"
+	])
+	eq_f.multiline = true
+	eq_f.align_mode = &"left"
+	eq_f.font_size = 30
+	eq_f.color = Color(0.74, 0.96, 1.0)
+	eq_f.position = Vector2(740.0, 330.0)
+	eq_f.modulate.a = 0.0
+	add_child(eq_f)
+
+	eq_g = PortMathTexMobject.new()
+	eq_g.set_expressions([
+		"\\left\\{ f(x)=\\frac{\\sqrt[3]{x^2+1}}{1+x} \\right\\}",
+		"\\binom{n}{k}=\\frac{n!}{k!(n-k)!}",
+		"\\operatorname{argmax}_x\\; g(x)=\\mathcal{F}(x)"
+	])
+	eq_g.multiline = true
+	eq_g.multiline_align_separator = true
+	eq_g.multiline_separator_token = "="
+	eq_g.multiline_separator_padding = 1
+	eq_g.align_mode = &"left"
+	eq_g.font_size = 28
+	eq_g.color = Color(0.9, 0.95, 1.0)
+	eq_g.position = Vector2(740.0, 480.0)
+	eq_g.modulate.a = 0.0
+	add_child(eq_g)
+
 	play(PortWrite.new(eq_a, 1.1, &"linear"))
 	wait(0.25)
 	play(PortTransformMatchingText.new(
@@ -94,6 +126,10 @@ func _ready() -> void:
 		&"smooth",
 		16.0
 	))
+	wait(0.2)
+	play(PortFadeIn.new(eq_f, 0.7, &"smooth"))
+	wait(0.2)
+	play(PortFadeIn.new(eq_g, 0.75, &"smooth"))
 
 
 func _create_caption(text: String) -> void:

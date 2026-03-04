@@ -25,6 +25,38 @@ var multiline: bool:
 		_multiline = value
 		_rebuild_tex_source()
 
+var _multiline_align_separator: bool = false
+var multiline_align_separator: bool:
+	get:
+		return _multiline_align_separator
+	set(value):
+		_multiline_align_separator = value
+		_rebuild_tex_source()
+
+var _multiline_separator_token: String = "="
+var multiline_separator_token: String:
+	get:
+		return _multiline_separator_token
+	set(value):
+		_multiline_separator_token = value
+		_rebuild_tex_source()
+
+var _multiline_separator_tokens: PackedStringArray = PackedStringArray()
+var multiline_separator_tokens: PackedStringArray:
+	get:
+		return _multiline_separator_tokens
+	set(value):
+		_multiline_separator_tokens = value
+		_rebuild_tex_source()
+
+var _multiline_separator_padding: int = 1
+var multiline_separator_padding: int:
+	get:
+		return _multiline_separator_padding
+	set(value):
+		_multiline_separator_padding = maxi(0, value)
+		_rebuild_tex_source()
+
 var _align_mode: StringName = &"left"
 var align_mode: StringName:
 	get:
@@ -68,6 +100,8 @@ var preserve_operator_tokens: bool:
 	set(value):
 		_preserve_operator_tokens = value
 
+var _expression_unsupported_commands: Array[PackedStringArray] = []
+
 
 func _ready() -> void:
 	super._ready()
@@ -98,15 +132,26 @@ func get_match_tokens() -> PackedStringArray:
 
 func _rebuild_tex_source() -> void:
 	if expressions.is_empty():
+		_expression_unsupported_commands = []
 		tex_source = tex_source
 		return
+	_expression_unsupported_commands = []
+	for expr in expressions:
+		_expression_unsupported_commands.append(get_unsupported_commands_for_source(expr))
+	var rendered_expressions: PackedStringArray = expressions
+	if multiline and multiline_align_separator:
+		rendered_expressions = _align_expressions_on_separator(expressions)
 	var glue := "\\\\ " if multiline else separator
 	var combined := ""
-	for i in range(expressions.size()):
+	for i in range(rendered_expressions.size()):
 		if i > 0:
 			combined += glue
-		combined += expressions[i]
+		combined += rendered_expressions[i]
 	tex_source = combined
+
+
+func get_last_expression_unsupported_commands() -> Array[PackedStringArray]:
+	return _expression_unsupported_commands
 
 
 func _apply_alignment() -> void:
@@ -151,3 +196,73 @@ func _split_expression_tokens(rendered_expression: String) -> PackedStringArray:
 	if last.length() >= 1:
 		out.append(last)
 	return out
+
+
+func _align_expressions_on_separator(lines: PackedStringArray) -> PackedStringArray:
+	var out: PackedStringArray = PackedStringArray()
+	if lines.is_empty():
+		return out
+	var active_tokens: PackedStringArray = _resolve_active_separator_tokens()
+	if active_tokens.is_empty():
+		out.append_array(lines)
+		return out
+
+	var max_left_len: int = 0
+	for line in lines:
+		var split: Dictionary = _find_separator_split(line, active_tokens)
+		if bool(split.get("found", false)):
+			var left_part: String = str(split.get("left", ""))
+			max_left_len = maxi(max_left_len, left_part.strip_edges().length())
+
+	for line in lines:
+		var split: Dictionary = _find_separator_split(line, active_tokens)
+		if not bool(split.get("found", false)):
+			out.append(line)
+			continue
+		var left: String = str(split.get("left", "")).strip_edges()
+		var token: String = str(split.get("token", ""))
+		var right: String = str(split.get("right", "")).strip_edges()
+		var left_padded: String = _pad_right_spaces(left, max_left_len)
+		var pad_spaces: String = " ".repeat(multiline_separator_padding)
+		out.append("%s%s%s%s%s" % [left_padded, pad_spaces, token, pad_spaces, right])
+	return out
+
+
+func _resolve_active_separator_tokens() -> PackedStringArray:
+	var out: PackedStringArray = PackedStringArray()
+	for token in multiline_separator_tokens:
+		var clean: String = token.strip_edges()
+		if clean.length() > 0 and not out.has(clean):
+			out.append(clean)
+	var primary: String = multiline_separator_token.strip_edges()
+	if primary.length() > 0 and not out.has(primary):
+		out.insert(0, primary)
+	return out
+
+
+func _find_separator_split(line: String, tokens: PackedStringArray) -> Dictionary:
+	var best_idx: int = -1
+	var best_token: String = ""
+	for token in tokens:
+		var idx: int = line.find(token)
+		if idx < 0:
+			continue
+		if best_idx < 0 or idx < best_idx:
+			best_idx = idx
+			best_token = token
+	if best_idx < 0:
+		return {"found": false}
+	var left: String = line.substr(0, best_idx)
+	var right: String = line.substr(best_idx + best_token.length())
+	return {
+		"found": true,
+		"left": left,
+		"token": best_token,
+		"right": right
+	}
+
+
+func _pad_right_spaces(s: String, width: int) -> String:
+	if s.length() >= width:
+		return s
+	return s + " ".repeat(width - s.length())
