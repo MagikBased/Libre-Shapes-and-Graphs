@@ -3,11 +3,11 @@
 
 extends GShapesCompatibleScene
 
-var phase_tracker: LsgValueTracker
+var phase_tracker: GShapesValueTracker
 var origin_dot: Circle
 var tip_dot: Circle
-var vector_arrow: LsgArrow2D
-var magnitude_readout: LsgDecimalNumber
+var vector_arrow: GShapesArrow2D
+var magnitude_readout: GShapesDecimalNumber
 
 
 func _ready() -> void:
@@ -25,11 +25,11 @@ func _ready() -> void:
 	vector_arrow.tip_length = 22.0
 	vector_arrow.tip_angle_deg = 30.0
 	add_child(vector_arrow)
-	vector_arrow.add_updater(func(target: LsgObject2D, _delta: float) -> void:
-		(target as LsgArrow2D).set_points(origin_dot.position, tip_dot.position)
+	vector_arrow.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
+		(target as GShapesArrow2D).set_points(origin_dot.position, tip_dot.position)
 	)
 
-	tip_dot.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	tip_dot.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var t: float = phase_tracker.get_value()
 		var x: float = 640.0 + cos(t * 1.1) * 280.0
 		var y: float = 360.0 + sin(t * 1.8) * 170.0
@@ -69,4 +69,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

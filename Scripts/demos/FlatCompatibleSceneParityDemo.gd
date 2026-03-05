@@ -1,5 +1,5 @@
 # Demo: FlatCompatibleSceneParityDemo
-# Expected behavior: LsgCompatibleScene-style timeline API running inside flat 2D-on-3D scene mode.
+# Expected behavior: GShapesCompatibleScene-style timeline API running inside flat 2D-on-3D scene mode.
 
 extends GShapesFlatCompatibleScene3D
 
@@ -67,7 +67,7 @@ func _run_timeline() -> void:
 	])
 	wait(0.1)
 	play_map([circle, square], func(node: Node2D):
-		return (node as LsgObject2D).animate.rotate_to(node.rotation + 0.5).set_run_time(0.7)
+		return (node as GShapesObject2D).animate.rotate_to(node.rotation + 0.5).set_run_time(0.7)
 	)
 	wait(0.1)
 	play(GShapes.Wiggle.new(circle, 0.8, &"smooth"))
@@ -89,4 +89,7 @@ func _build_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
 

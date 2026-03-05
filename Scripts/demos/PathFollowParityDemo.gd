@@ -8,7 +8,7 @@ func _ready() -> void:
 	_create_caption("Phase 6 path-follow parity: move-along-path with tangent orientation")
 
 	var center := Vector2(640.0, 360.0)
-	var path: LsgPolylineMobject = GShapes.PolylineMobject.new()
+	var path: GShapesPolylineMobject = GShapes.PolylineMobject.new()
 	path.position = center
 	path.color = Color(0.72, 0.86, 1.0, 0.8)
 	path.stroke_width = 3.0
@@ -16,7 +16,7 @@ func _ready() -> void:
 	path.points = _make_lemniscate_points(300.0, 90)
 	add_child(path)
 
-	var mover: LsgPolylineMobject = GShapes.PolylineMobject.new()
+	var mover: GShapesPolylineMobject = GShapes.PolylineMobject.new()
 	mover.color = Color(1.0, 0.86, 0.2, 0.95)
 	mover.closed = true
 	mover.points = PackedVector2Array([
@@ -27,7 +27,7 @@ func _ready() -> void:
 	])
 	add_child(mover)
 
-	var tracer: LsgTracedPath2D = GShapes.TracedPath2D.new()
+	var tracer: GShapesTracedPath2D = GShapes.TracedPath2D.new()
 	tracer.color = Color(0.26, 1.0, 0.78, 0.9)
 	tracer.stroke_width = 2.0
 	tracer.min_distance = 1.0
@@ -36,7 +36,7 @@ func _ready() -> void:
 	tracer.set_target(mover)
 	add_child(tracer)
 
-	var sweep: LsgMoveAlongPath2D = GShapes.MoveAlongPath2D.new(
+	var sweep: GShapesMoveAlongPath2D = GShapes.MoveAlongPath2D.new(
 		mover,
 		path.points,
 		8.0,
@@ -70,4 +70,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

@@ -1,9 +1,8 @@
 # Demo: Surface3DDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var surface: LsgSurfaceMesh3D
+extends GShapes3DScene
+var surface: GShapesSurfaceMesh3D
 
 
 func _ready() -> void:
@@ -34,3 +33,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	surface.rotation.y += delta * 0.35
+
+
+

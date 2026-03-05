@@ -3,10 +3,10 @@
 
 extends GShapesCompatibleScene
 
-var number_line: LsgNumberLine2D
-var tracker: LsgValueTracker
+var number_line: GShapesNumberLine2D
+var tracker: GShapesValueTracker
 var pointer: Circle
-var value_readout: LsgDecimalNumber
+var value_readout: GShapesDecimalNumber
 
 
 func _ready() -> void:
@@ -32,7 +32,7 @@ func _ready() -> void:
 	pointer.size = Vector2(22.0, 22.0)
 	pointer.color = Color(1.0, 0.84, 0.2)
 	add_child(pointer)
-	pointer.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	pointer.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var value := tracker.get_value()
 		var local := number_line.number_to_local(value)
 		(target as Node2D).global_position = number_line.global_position + local + Vector2(0.0, -26.0)
@@ -58,4 +58,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

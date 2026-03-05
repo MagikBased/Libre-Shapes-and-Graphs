@@ -3,9 +3,9 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
+var tracker: GShapesValueTracker
 var moving_dot: Circle
-var traced_path: LsgTracedPath2D
+var traced_path: GShapesTracedPath2D
 
 
 func _ready() -> void:
@@ -33,7 +33,7 @@ func _ready() -> void:
 	traced_path.set_target(moving_dot)
 	add_child(traced_path)
 
-	var dynamic_line: LsgAlwaysRedraw2D = GShapes.AlwaysRedraw2D.new(func():
+	var dynamic_line: GShapesAlwaysRedraw2D = GShapes.AlwaysRedraw2D.new(func():
 		var line := Line.new()
 		line.color = Color(0.85, 0.9, 1.0, 0.45)
 		line.stroke_width = 2.0
@@ -42,7 +42,7 @@ func _ready() -> void:
 	)
 	add_child(dynamic_line)
 
-	moving_dot.add_updater(func(node: LsgObject2D, _delta: float) -> void:
+	moving_dot.add_updater(func(node: GShapesObject2D, _delta: float) -> void:
 		var t := tracker.get_value()
 		var radius_x := 260.0
 		var radius_y := 180.0
@@ -58,8 +58,8 @@ func _ready() -> void:
 	])
 
 
-func _make_orbit_frame(center: Vector2) -> LsgPolylineMobject:
-	var frame: LsgPolylineMobject = GShapes.PolylineMobject.new()
+func _make_orbit_frame(center: Vector2) -> GShapesPolylineMobject:
+	var frame: GShapesPolylineMobject = GShapes.PolylineMobject.new()
 	frame.color = Color(0.8, 0.85, 0.95, 0.35)
 	frame.stroke_width = 2.0
 	frame.closed = true
@@ -78,4 +78,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

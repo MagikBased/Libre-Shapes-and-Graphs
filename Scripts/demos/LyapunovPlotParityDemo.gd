@@ -4,9 +4,9 @@
 extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
-var lyapunov_plot: LsgLyapunovPlot2D
-var seed_tracker: LsgValueTracker
-var zero_line: LsgPolylineMobject
+var lyapunov_plot: GShapesLyapunovPlot2D
+var seed_tracker: GShapesValueTracker
+var zero_line: GShapesPolylineMobject
 var info_label: Label
 
 
@@ -91,4 +91,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

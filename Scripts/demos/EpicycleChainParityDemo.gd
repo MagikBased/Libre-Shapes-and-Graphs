@@ -3,9 +3,9 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var chain: LsgEpicycleChain2D
-var tracer: LsgTracedPath2D
+var tracker: GShapesValueTracker
+var chain: GShapesEpicycleChain2D
+var tracer: GShapesTracedPath2D
 var dot: Circle
 
 
@@ -24,7 +24,7 @@ func _ready() -> void:
 	dot.size = Vector2(10.0, 10.0)
 	dot.color = Color(1.0, 0.72, 0.35, 0.95)
 	add_child(dot)
-	dot.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	dot.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var t: float = tracker.get_value()
 		chain.set_time(t)
 		(target as Node2D).position = chain.position + chain.endpoint_local_at(t)
@@ -57,4 +57,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

@@ -50,7 +50,7 @@ func _ready() -> void:
 	])
 
 
-func _update_dot_position(target: LsgObject2D, _delta: float) -> void:
+func _update_dot_position(target: GShapesObject2D, _delta: float) -> void:
 	var x := x_controller.position.x
 	var y := parabola.eval_y(x)
 	target.position = axes.position + axes.graph_to_local(Vector2(x, y))
@@ -62,4 +62,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

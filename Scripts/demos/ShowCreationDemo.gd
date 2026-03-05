@@ -1,8 +1,7 @@
 # Demo: ShowCreationDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
+extends GShapesCompatibleScene
 var line_a: Line
 var line_b: Line
 
@@ -34,3 +33,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

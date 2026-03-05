@@ -1,5 +1,5 @@
 class_name ImplicitFunction2D
-extends LsgObject2D
+extends GShapesObject2D
 
 var _axes: GraphAxes2D
 var axes: GraphAxes2D:
@@ -95,3 +95,6 @@ func _eval_f(x: float, y: float) -> float:
 			return v * v * v - x * x * y * y * y
 		_:
 			return x * x + y * y - 4.0
+
+
+

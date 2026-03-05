@@ -36,3 +36,4 @@ func _process(delta):
 #			LineType.CUBIC:
 #				var new_point = cubic_bezier(t, start_point, control_point_1, control_point_2, end_point)
 #				self.linepoints.append(new_point)
+

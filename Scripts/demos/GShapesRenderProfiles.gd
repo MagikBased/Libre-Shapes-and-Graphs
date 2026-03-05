@@ -47,3 +47,5 @@ static func build_output_basename(scene_path: String, profile_name: String) -> S
 	var scene_name := scene_path.get_file().trim_suffix(".tscn")
 	return "%s__%s" % [scene_name, profile_name]
 
+
+

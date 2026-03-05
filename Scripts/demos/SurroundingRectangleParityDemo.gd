@@ -3,8 +3,8 @@
 
 extends GShapesCompatibleScene
 
-var labels: Array[LsgTextMobject] = []
-var highlight: LsgSurroundingRectangle2D
+var labels: Array[GShapesTextMobject] = []
+var highlight: GShapesSurroundingRectangle2D
 var active_index: int = 0
 
 
@@ -22,13 +22,13 @@ func _ready() -> void:
 
 func _build_labels() -> void:
 	var lines := [
-		"Lsging parity",
+		"Graphing parity",
 		"Layout + transforms",
 		"Graph + text + motion",
 		"Coverage and regression"
 	]
 	for i in range(lines.size()):
-		var t: LsgTextMobject = GShapes.TextMobject.new()
+		var t: GShapesTextMobject = GShapes.TextMobject.new()
 		t.text = lines[i]
 		t.font_size = 44
 		t.color = Color(0.92, 0.96, 1.0)
@@ -61,4 +61,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

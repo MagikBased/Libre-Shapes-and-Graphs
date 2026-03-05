@@ -1,10 +1,9 @@
 # Demo: ThreeDPolyhedronParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var poly: LsgPolyhedron3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var poly: GShapesPolyhedron3D
 var satellites: Array[MeshInstance3D] = []
 var time_accum: float = 0.0
 
@@ -97,7 +96,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D polyhedron parity: LsgPolyhedron3D | 1 tetra, 2 octa, 3 icosa, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D polyhedron parity: GShapesPolyhedron3D | 1 tetra, 2 octa, 3 icosa, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

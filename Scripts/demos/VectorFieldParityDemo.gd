@@ -3,9 +3,9 @@
 
 extends GShapesCompatibleScene
 
-var field: LsgVectorField2D
-var strength_tracker: LsgValueTracker
-var strength_label: LsgDecimalNumber
+var field: GShapesVectorField2D
+var strength_tracker: GShapesValueTracker
+var strength_label: GShapesDecimalNumber
 
 
 func _ready() -> void:
@@ -72,4 +72,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

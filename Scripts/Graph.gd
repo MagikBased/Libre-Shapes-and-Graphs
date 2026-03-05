@@ -1,5 +1,5 @@
 class_name Graph
-extends LsgObject2D
+extends GShapesObject2D
 
 var data_points: PackedVector2Array = PackedVector2Array()
 var line_color: Color = Color.BLUE
@@ -19,3 +19,4 @@ func _draw():
 	max_segment = clampi(max_segment, 0, data_points.size() - 1)
 	for i in range(max_segment):
 		draw_line(data_points[i], data_points[i + 1], line_color, line_width)
+

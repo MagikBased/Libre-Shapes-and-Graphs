@@ -3,8 +3,8 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var polar_curve: LsgPolarPlot2D
+var tracker: GShapesValueTracker
+var polar_curve: GShapesPolarPlot2D
 var marker: Circle
 
 
@@ -31,7 +31,7 @@ func _ready() -> void:
 	marker.size = Vector2(16.0, 16.0)
 	marker.color = Color(0.86, 1.0, 0.4)
 	add_child(marker)
-	marker.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	marker.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var theta: float = tracker.get_value()
 		var local_point: Vector2 = polar_curve.sample_point(theta)
 		(target as Node2D).position = polar_curve.position + local_point
@@ -53,4 +53,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

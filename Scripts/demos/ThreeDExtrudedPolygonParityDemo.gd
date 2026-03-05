@@ -1,10 +1,9 @@
 # Demo: ThreeDExtrudedPolygonParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var extruded: LsgExtrudedPolygon3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var extruded: GShapesExtrudedPolygon3D
 var marker: MeshInstance3D
 var time_accum: float = 0.0
 
@@ -96,7 +95,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D extruded-polygon parity: LsgExtrudedPolygon3D | 1/2/3 shape, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D extruded-polygon parity: GShapesExtrudedPolygon3D | 1/2/3 shape, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

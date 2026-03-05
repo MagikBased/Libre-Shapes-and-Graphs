@@ -15,12 +15,12 @@ const VISUAL_2D_DEMOS: Array[String] = [
 	"res://Scenes/demos/transform_matching_shapes_demo.tscn",
 	"res://Scenes/demos/graph_demo.tscn",
 	"res://Scenes/demos/implicit_function_demo.tscn",
-	"res://Scenes/demos/example_graph_scene_port.tscn",
+	"res://Scenes/demos/example_graph_scene.tscn",
 	"res://Scenes/demos/composition_demo.tscn",
 	"res://Scenes/demos/updater_graph_demo.tscn",
 	"res://Scenes/demos/value_tracker_demo.tscn",
 	"res://Scenes/demos/advanced_parity_demo.tscn",
-	"res://Scenes/demos/example_coordinate_system_port.tscn",
+	"res://Scenes/demos/example_coordinate_system.tscn",
 	"res://Scenes/demos/morph_and_smooth_demo.tscn",
 	"res://Scenes/demos/play_semantics_map_demo.tscn",
 	"res://Scenes/demos/camera_framing_demo.tscn",
@@ -183,4 +183,6 @@ static func get_runner_demos() -> Array[String]:
 
 static func get_smoke_demos() -> Array[String]:
 	return get_visual_demos()
+
+
 

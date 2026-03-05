@@ -3,13 +3,13 @@
 
 extends GShapesCompatibleScene
 
-var eq_a: LsgMathTexMobject
-var eq_b: LsgMathTexMobject
-var eq_c: LsgMathTexMobject
-var eq_d: LsgMathTexMobject
-var eq_e: LsgMathTexMobject
-var eq_f: LsgMathTexMobject
-var eq_g: LsgMathTexMobject
+var eq_a: GShapesMathTexMobject
+var eq_b: GShapesMathTexMobject
+var eq_c: GShapesMathTexMobject
+var eq_d: GShapesMathTexMobject
+var eq_e: GShapesMathTexMobject
+var eq_f: GShapesMathTexMobject
+var eq_g: GShapesMathTexMobject
 
 
 func _ready() -> void:
@@ -138,4 +138,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

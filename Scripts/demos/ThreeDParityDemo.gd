@@ -1,10 +1,9 @@
 # Demo: ThreeDParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var surface: LsgSurfaceMesh3D
-var cloud: LsgPointCloud3D
+extends GShapes3DScene
+var surface: GShapesSurfaceMesh3D
+var cloud: GShapesPointCloud3D
 var time_accum: float = 0.0
 
 
@@ -69,3 +68,6 @@ func _create_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

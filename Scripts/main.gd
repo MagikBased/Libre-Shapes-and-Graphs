@@ -79,3 +79,4 @@ func _draw():
 func _input(event):
 	if event.is_action_pressed("Reset"):
 		get_tree().reload_current_scene()
+

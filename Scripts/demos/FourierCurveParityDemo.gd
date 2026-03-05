@@ -3,8 +3,8 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var curve: LsgFourierCurve2D
+var tracker: GShapesValueTracker
+var curve: GShapesFourierCurve2D
 var marker: Circle
 var _last_strength: float = -9999.0
 
@@ -30,7 +30,7 @@ func _ready() -> void:
 	marker.size = Vector2(12.0, 12.0)
 	marker.color = Color(0.82, 1.0, 0.5)
 	add_child(marker)
-	marker.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	marker.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		if curve.points.is_empty():
 			return
 		var angle: float = tracker.get_value() * TAU
@@ -66,4 +66,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

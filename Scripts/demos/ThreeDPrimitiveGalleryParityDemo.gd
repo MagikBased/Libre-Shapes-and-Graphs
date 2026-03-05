@@ -1,12 +1,11 @@
 # Demo: ThreeDPrimitiveGalleryParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var left_surface: LsgSurfaceMesh3D
-var right_surface: LsgSurfaceMesh3D
-var center_cloud: LsgPointCloud3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var left_surface: GShapesSurfaceMesh3D
+var right_surface: GShapesSurfaceMesh3D
+var center_cloud: GShapesPointCloud3D
 var accent_nodes: Array[Node3D] = []
 var focus_groups: Array = []
 var focus_index: int = -1
@@ -80,8 +79,8 @@ func _input(event: InputEvent) -> void:
 			_cycle_focus()
 
 
-func _create_surface(surface_type: StringName, pos: Vector3, color: Color) -> LsgSurfaceMesh3D:
-	var surface: LsgSurfaceMesh3D = GShapes.SurfaceMesh3D.new()
+func _create_surface(surface_type: StringName, pos: Vector3, color: Color) -> GShapesSurfaceMesh3D:
+	var surface: GShapesSurfaceMesh3D = GShapes.SurfaceMesh3D.new()
 	surface.surface_name = surface_type
 	surface.x_steps = 52
 	surface.z_steps = 52
@@ -171,3 +170,6 @@ func _create_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

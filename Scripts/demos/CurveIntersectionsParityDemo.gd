@@ -3,10 +3,10 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var curve_a: LsgFourierCurve2D
-var curve_b: LsgFourierCurve2D
-var intersections: LsgCurveIntersections2D
+var tracker: GShapesValueTracker
+var curve_a: GShapesFourierCurve2D
+var curve_b: GShapesFourierCurve2D
+var intersections: GShapesCurveIntersections2D
 var _last_t: float = -9999.0
 
 
@@ -81,4 +81,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

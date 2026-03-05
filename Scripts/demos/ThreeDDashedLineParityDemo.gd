@@ -1,11 +1,10 @@
 # Demo: ThreeDDashedLineParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
 var movers: Array[MeshInstance3D] = []
-var connectors: Array[LsgDashedLine3D] = []
+var connectors: Array[GShapesDashedLine3D] = []
 var time_accum: float = 0.0
 
 
@@ -83,7 +82,7 @@ func _spawn_movers() -> void:
 func _spawn_connectors() -> void:
 	var pairs: Array[Vector2i] = [Vector2i(0, 1), Vector2i(1, 2), Vector2i(2, 0)]
 	for i in range(pairs.size()):
-		var line: LsgDashedLine3D = GShapes.DashedLine3D.new()
+		var line: GShapesDashedLine3D = GShapes.DashedLine3D.new()
 		line.dash_length = 0.28
 		line.gap_length = 0.18
 		line.thickness = 0.03
@@ -96,9 +95,9 @@ func _spawn_connectors() -> void:
 func _update_connectors() -> void:
 	if movers.size() < 3 or connectors.size() < 3:
 		return
-	var c0: LsgDashedLine3D = connectors[0]
-	var c1: LsgDashedLine3D = connectors[1]
-	var c2: LsgDashedLine3D = connectors[2]
+	var c0: GShapesDashedLine3D = connectors[0]
+	var c1: GShapesDashedLine3D = connectors[1]
+	var c2: GShapesDashedLine3D = connectors[2]
 	c0.set_points(c0.to_local(movers[0].global_position), c0.to_local(movers[1].global_position))
 	c1.set_points(c1.to_local(movers[1].global_position), c1.to_local(movers[2].global_position))
 	c2.set_points(c2.to_local(movers[2].global_position), c2.to_local(movers[0].global_position))
@@ -118,7 +117,10 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D dashed-line parity: LsgDashedLine3D connectors | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D dashed-line parity: GShapesDashedLine3D connectors | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

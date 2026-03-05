@@ -1,15 +1,14 @@
 # Demo: ExampleCoordinateSystemDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
+extends GShapesCompatibleScene
 var axes: GraphAxes2D
 var dot: Circle
 var h_line: Line
 var v_line: Line
 
-var x_tracker: LsgValueTracker
-var y_tracker: LsgValueTracker
+var x_tracker: GShapesValueTracker
+var y_tracker: GShapesValueTracker
 
 
 func _ready() -> void:
@@ -66,25 +65,25 @@ func _ready() -> void:
 	])
 
 
-func _move_trackers(x_value: float, y_value: float, duration: float) -> LsgAnimationGroup:
+func _move_trackers(x_value: float, y_value: float, duration: float) -> GShapesAnimationGroup:
 	return GShapes.AnimationGroup.new([
 		GShapes.SetValue.new(x_tracker, x_value, duration, &"smooth"),
 		GShapes.SetValue.new(y_tracker, y_value, duration, &"smooth"),
 	])
 
 
-func _update_dot_position(target: LsgObject2D, _delta: float) -> void:
+func _update_dot_position(target: GShapesObject2D, _delta: float) -> void:
 	var local_point := axes.c2p(x_tracker.get_value(), y_tracker.get_value())
 	target.position = axes.to_global(local_point)
 
 
-func _update_h_line(target: LsgObject2D, _delta: float) -> void:
+func _update_h_line(target: GShapesObject2D, _delta: float) -> void:
 	var local_point := axes.c2p(x_tracker.get_value(), y_tracker.get_value())
 	var points := axes.get_h_line_points(local_point)
 	target.set_endpoints(axes.to_global(points[0]), axes.to_global(points[1]))
 
 
-func _update_v_line(target: LsgObject2D, _delta: float) -> void:
+func _update_v_line(target: GShapesObject2D, _delta: float) -> void:
 	var local_point := axes.c2p(x_tracker.get_value(), y_tracker.get_value())
 	var points := axes.get_v_line_points(local_point)
 	target.set_endpoints(axes.to_global(points[0]), axes.to_global(points[1]))
@@ -96,3 +95,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

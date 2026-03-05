@@ -1,10 +1,9 @@
 # Demo: ThreeDCameraTourParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
+extends GShapes3DScene
 var clusters: Array[Node3D] = []
-var tour: LsgCameraTour3D
+var tour: GShapesCameraTour3D
 var tour_loops: int = 2
 var time_accum: float = 0.0
 
@@ -15,7 +14,7 @@ func _ready() -> void:
 	set_orbit_pose(0.28, -0.28, 12.2)
 	set_camera_fov(70.0)
 
-	var axes: LsgAxes3D = GShapes.Axes3D.new()
+	var axes: GShapesAxes3D = GShapes.Axes3D.new()
 	axes.axis_length = 3.5
 	axes.axis_thickness = 0.025
 	axes.tip_radius = 0.08
@@ -99,7 +98,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D camera-tour parity: LsgCameraTour3D sequence | RMB orbit, MMB pan, wheel zoom, R reset, T replay tour, F frame-all"
+	label.text = "3D camera-tour parity: GShapesCameraTour3D sequence | RMB orbit, MMB pan, wheel zoom, R reset, T replay tour, F frame-all"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

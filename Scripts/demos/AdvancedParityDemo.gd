@@ -1,15 +1,14 @@
 # Demo: AdvancedParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
+extends GShapesCompatibleScene
 var axes: GraphAxes2D
 var sin_plot: FunctionPlot2D
 var step_plot: FunctionPlot2D
 var sin_label: Label
 var step_label: Label
 var dot: Circle
-var x_tracker: LsgValueTracker
+var x_tracker: GShapesValueTracker
 
 
 func _ready() -> void:
@@ -77,7 +76,7 @@ func _ready() -> void:
 	])
 
 
-func _update_dot_on_step(target: LsgObject2D, _delta: float) -> void:
+func _update_dot_on_step(target: GShapesObject2D, _delta: float) -> void:
 	var x := x_tracker.get_value()
 	var y := 2.0 if x > 3.0 else 1.0
 	target.position = axes.to_global(axes.c2p(x, y))
@@ -89,3 +88,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

@@ -96,3 +96,5 @@ func _create_caption(text: String) -> void:
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
 
+
+

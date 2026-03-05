@@ -3,12 +3,12 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var plane: LsgComplexPlane2D
+var tracker: GShapesValueTracker
+var plane: GShapesComplexPlane2D
 var z_point: Circle
 var iz_point: Circle
-var z_trace: LsgTracedPath2D
-var iz_trace: LsgTracedPath2D
+var z_trace: GShapesTracedPath2D
+var iz_trace: GShapesTracedPath2D
 
 
 func _ready() -> void:
@@ -28,7 +28,7 @@ func _ready() -> void:
 	z_point.size = Vector2(16.0, 16.0)
 	z_point.color = Color(1.0, 0.7, 0.32)
 	add_child(z_point)
-	z_point.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	z_point.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var theta: float = tracker.get_value()
 		(target as Node2D).position = _z_world(theta)
 	)
@@ -37,7 +37,7 @@ func _ready() -> void:
 	iz_point.size = Vector2(14.0, 14.0)
 	iz_point.color = Color(0.45, 0.95, 1.0)
 	add_child(iz_point)
-	iz_point.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	iz_point.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var theta: float = tracker.get_value()
 		(target as Node2D).position = _iz_world(theta)
 	)
@@ -91,4 +91,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

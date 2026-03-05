@@ -1,11 +1,10 @@
 # Demo: AnimateBuilderDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
+extends GShapesCompatibleScene
 var circles: Array[Circle] = []
-var tracker: LsgValueTracker
-var tracker_label: LsgTextMobject
+var tracker: GShapesValueTracker
+var tracker_label: GShapesTextMobject
 
 
 func _ready() -> void:
@@ -49,7 +48,7 @@ func _spawn_row() -> void:
 		y += 120.0
 
 
-func _update_tracker_label(target: LsgObject2D, _delta: float) -> void:
+func _update_tracker_label(target: GShapesObject2D, _delta: float) -> void:
 	target.text = "value = %.2f" % tracker.get_value()
 
 
@@ -59,3 +58,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

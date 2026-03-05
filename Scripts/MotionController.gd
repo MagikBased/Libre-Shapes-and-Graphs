@@ -117,3 +117,4 @@ func _process(delta):
 			#current_t_index = (current_t_index+1) % rainbow_colors.size()
 			#end_color = rainbow_colors[current_t_index]
 			color_elapsed = 0
+

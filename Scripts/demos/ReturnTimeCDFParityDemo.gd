@@ -4,8 +4,8 @@
 extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
-var cdf_plot: LsgReturnTimeCDF2D
-var parameter_tracker: LsgValueTracker
+var cdf_plot: GShapesReturnTimeCDF2D
+var parameter_tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -77,4 +77,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

@@ -1,8 +1,7 @@
 # Demo: LaggedGroupDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
+extends GShapesCompatibleScene
 var circles: Array[Circle] = []
 
 
@@ -19,7 +18,7 @@ func _ready() -> void:
 		circles.append(c)
 		y += 78.0
 
-	var animations: Array[LsgAnimation] = []
+	var animations: Array[GShapesAnimation] = []
 	for c in circles:
 		animations.append(GShapes.MoveTo.new(c, Vector2(1020.0, c.position.y), 1.2, &"smooth"))
 
@@ -32,3 +31,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

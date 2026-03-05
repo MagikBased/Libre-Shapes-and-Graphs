@@ -4,9 +4,9 @@
 extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
-var curve: LsgParametricFunction2D
-var extrema: LsgGraphExtrema2D
-var phase_tracker: LsgValueTracker
+var curve: GShapesParametricFunction2D
+var extrema: GShapesGraphExtrema2D
+var phase_tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -91,4 +91,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

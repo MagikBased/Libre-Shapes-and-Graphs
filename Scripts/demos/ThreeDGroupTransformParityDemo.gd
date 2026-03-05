@@ -1,9 +1,8 @@
 # Demo: ThreeDGroupTransformParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var group: LsgGroup3D
+extends GShapes3DScene
+var group: GShapesGroup3D
 var members: Array[Node3D] = []
 var time_accum: float = 0.0
 var _pulse_points: Array[Vector3] = []
@@ -15,7 +14,7 @@ func _ready() -> void:
 	set_orbit_pose(0.32, -0.3, 10.6)
 	set_camera_fov(72.0)
 
-	var axes: LsgAxes3D = GShapes.Axes3D.new()
+	var axes: GShapesAxes3D = GShapes.Axes3D.new()
 	axes.axis_length = 3.0
 	axes.axis_thickness = 0.024
 	axes.tip_radius = 0.07
@@ -140,3 +139,6 @@ func _create_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

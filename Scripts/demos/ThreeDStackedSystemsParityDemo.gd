@@ -1,9 +1,8 @@
 # Demo: ThreeDStackedSystemsParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
 var stacked_rings: Array = []
 var ring_roots: Array[Node3D] = []
 var markers: Array[Node3D] = []
@@ -167,3 +166,6 @@ func _create_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

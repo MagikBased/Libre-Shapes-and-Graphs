@@ -1,10 +1,9 @@
 # Demo: ThreeDSurfaceContoursParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var contours: LsgSurfaceContours3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var contours: GShapesSurfaceContours3D
 var time_accum: float = 0.0
 var mode_index: int = 0
 var modes: Array[StringName] = [&"torus", &"mobius", &"wave_sheet"]
@@ -89,7 +88,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D surface-contours parity: LsgSurfaceContours3D | Space/1/2/3 mode, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D surface-contours parity: GShapesSurfaceContours3D | Space/1/2/3 mode, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

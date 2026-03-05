@@ -1,10 +1,9 @@
 # Demo: ThreeDHelixBundleParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var helix_bundle: LsgHelixBundle3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var helix_bundle: GShapesHelixBundle3D
 var time_accum: float = 0.0
 var mode_index: int = 0
 var count_index: int = 1
@@ -93,7 +92,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D helix-bundle parity: LsgHelixBundle3D | Space mode, 1/2/3 strand count, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D helix-bundle parity: GShapesHelixBundle3D | Space mode, 1/2/3 strand count, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

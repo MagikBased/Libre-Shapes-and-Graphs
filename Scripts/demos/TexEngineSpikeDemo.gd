@@ -7,7 +7,7 @@ var title_label: Label
 var status_label: Label
 var detail_label: Label
 var cache_label: Label
-var equation: LsgMathTexMobject
+var equation: GShapesMathTexMobject
 
 
 func _ready() -> void:
@@ -111,4 +111,6 @@ func _layout_labels() -> void:
 	detail_label.size = Vector2(width - 32.0, 34.0)
 	cache_label.position = Vector2(16.0, 110.0)
 	cache_label.size = Vector2(width - 32.0, 30.0)
+
+
 

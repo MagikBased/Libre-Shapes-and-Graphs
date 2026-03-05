@@ -3,10 +3,10 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var curve: LsgFourierCurve2D
+var tracker: GShapesValueTracker
+var curve: GShapesFourierCurve2D
 var probe: Circle
-var nearest: LsgNearestPointOnCurve2D
+var nearest: GShapesNearestPointOnCurve2D
 var _last_strength: float = -9999.0
 
 
@@ -31,7 +31,7 @@ func _ready() -> void:
 	probe.size = Vector2(13.0, 13.0)
 	probe.color = Color(0.8, 0.96, 1.0, 0.95)
 	add_child(probe)
-	probe.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	probe.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var t: float = tracker.get_value()
 		var x: float = 640.0 + 300.0 * cos(t * TAU * 0.7 + 0.2)
 		var y: float = 360.0 + 170.0 * sin(t * TAU * 1.3)
@@ -73,4 +73,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

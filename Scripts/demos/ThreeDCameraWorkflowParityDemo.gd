@@ -1,8 +1,7 @@
 # Demo: ThreeDCameraWorkflowParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
+extends GShapes3DScene
 var clusters: Array[Node3D] = []
 var active_index: int = -1
 
@@ -13,7 +12,7 @@ func _ready() -> void:
 	set_orbit_pose(0.24, -0.28, 12.0)
 	set_camera_fov(70.0)
 
-	var axes: LsgAxes3D = GShapes.Axes3D.new()
+	var axes: GShapesAxes3D = GShapes.Axes3D.new()
 	axes.axis_length = 3.2
 	axes.axis_thickness = 0.025
 	axes.tip_radius = 0.08
@@ -111,3 +110,6 @@ func _create_overlay() -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

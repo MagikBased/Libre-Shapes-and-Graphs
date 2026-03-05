@@ -3,8 +3,8 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var particles: LsgFlowParticles2D
+var tracker: GShapesValueTracker
+var particles: GShapesFlowParticles2D
 
 
 func _ready() -> void:
@@ -43,4 +43,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

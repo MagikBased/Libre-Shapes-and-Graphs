@@ -1,9 +1,8 @@
 # Demo: PlaySemanticsMapDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends LsgCompatibleScene
-
-var group: LsgGroup2D
+extends GShapesCompatibleScene
+var group: GShapesGroup2D
 
 
 func _ready() -> void:
@@ -16,7 +15,7 @@ func _ready() -> void:
 	play_lagged_map(
 		group.get_members(),
 		func(member: Node2D, i: int):
-			var shape := member as LsgObject2D
+			var shape := member as GShapesObject2D
 			return shape.animate.shift(Vector2(760.0, 0.0)).set_color(Color.from_hsv(float(i) / 8.0, 0.85, 1.0)),
 		0.22,
 		2.4,
@@ -26,14 +25,14 @@ func _ready() -> void:
 
 	var return_builders: Array = []
 	for member in group.get_members():
-		return_builders.append((member as LsgObject2D).animate.shift(Vector2(-760.0, 0.0)))
+		return_builders.append((member as GShapesObject2D).animate.shift(Vector2(-760.0, 0.0)))
 	play(return_builders, 1.1, &"there_and_back_with_pause")
 
 	wait(0.2)
 	var members := group.get_members()
-	var first := members[0] as LsgObject2D
-	var fourth := members[3] as LsgObject2D
-	var seventh := members[6] as LsgObject2D
+	var first := members[0] as GShapesObject2D
+	var fourth := members[3] as GShapesObject2D
+	var seventh := members[6] as GShapesObject2D
 	play([
 		first.animate.scale_to(1.7),
 		fourth.animate.rotate_to(deg_to_rad(225.0)),
@@ -44,7 +43,7 @@ func _ready() -> void:
 	play_map(
 		members,
 		func(member: Node2D):
-			return (member as LsgObject2D).animate.set_opacity(0.6),
+			return (member as GShapesObject2D).animate.set_opacity(0.6),
 		0.55,
 		&"there_and_back"
 	)
@@ -67,3 +66,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+

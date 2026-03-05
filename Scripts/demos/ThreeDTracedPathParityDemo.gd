@@ -1,13 +1,12 @@
 # Demo: ThreeDTracedPathParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
 var mover_a: MeshInstance3D
 var mover_b: MeshInstance3D
-var trail_a: LsgTracedPath3D
-var trail_b: LsgTracedPath3D
+var trail_a: GShapesTracedPath3D
+var trail_b: GShapesTracedPath3D
 var time_accum: float = 0.0
 
 
@@ -78,8 +77,8 @@ func _create_mover(color: Color, radius: float) -> MeshInstance3D:
 	return body
 
 
-func _create_trail(color: Color, width_value: float, max_points_value: int) -> LsgTracedPath3D:
-	var trail: LsgTracedPath3D = GShapes.TracedPath3D.new()
+func _create_trail(color: Color, width_value: float, max_points_value: int) -> GShapesTracedPath3D:
+	var trail: GShapesTracedPath3D = GShapes.TracedPath3D.new()
 	trail.width = width_value
 	trail.default_color = color
 	trail.min_distance = 0.03
@@ -100,7 +99,10 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D traced-path parity: animated LsgTracedPath3D trails | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
+	label.text = "3D traced-path parity: animated GShapesTracedPath3D trails | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

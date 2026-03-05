@@ -5,10 +5,10 @@ extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
 var plot: FunctionPlot2D
-var rectangles: LsgRiemannRectangles2D
-var x_tracker: LsgValueTracker
-var dx_tracker: LsgValueTracker
-var mode_tracker: LsgValueTracker
+var rectangles: GShapesRiemannRectangles2D
+var x_tracker: GShapesValueTracker
+var dx_tracker: GShapesValueTracker
+var mode_tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -73,7 +73,7 @@ func _ready() -> void:
 	])
 
 
-func _update_rectangles(_target: LsgObject2D, _delta: float) -> void:
+func _update_rectangles(_target: GShapesObject2D, _delta: float) -> void:
 	var right: float = x_tracker.get_value()
 	var dx: float = dx_tracker.get_value()
 	var mode_value: float = mode_tracker.get_value()
@@ -97,4 +97,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

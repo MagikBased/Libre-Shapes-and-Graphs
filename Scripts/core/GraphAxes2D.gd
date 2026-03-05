@@ -1,5 +1,5 @@
 class_name GraphAxes2D
-extends LsgObject2D
+extends GShapesObject2D
 
 var _x_min: float = -6.0
 var x_min: float:
@@ -355,3 +355,6 @@ func _compute_label_position(point: Vector2, label: Label, anchor: StringName) -
 			if pos.y + size.y > viewport_size.y:
 				pos.y = point.y - size.y - margin.y
 			return pos
+
+
+

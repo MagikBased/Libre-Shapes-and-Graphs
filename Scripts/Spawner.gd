@@ -24,3 +24,4 @@ func spawn_graph(graph_type: String, pos: Vector2, data_points):
 	graph.data_points = data_points
 	add_child(graph)
 	return graph
+

@@ -3,7 +3,7 @@
 
 extends GShapesCompatibleScene
 
-var group: LsgGroup2D
+var group: GShapesGroup2D
 
 
 func _ready() -> void:
@@ -43,7 +43,7 @@ func _ready() -> void:
 	play_lagged_map(
 		group.get_members(),
 		func(member: Node2D, i: int):
-			return (member as LsgObject2D).animate.set_color(Color.from_hsv(float(i) / 12.0, 0.7, 1.0)),
+			return (member as GShapesObject2D).animate.set_color(Color.from_hsv(float(i) / 12.0, 0.7, 1.0)),
 		0.05,
 		0.8,
 		&"smooth"
@@ -75,4 +75,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

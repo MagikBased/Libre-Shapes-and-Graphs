@@ -1,5 +1,5 @@
 class_name Line
-extends LsgObject2D
+extends GShapesObject2D
 
 enum LineType { LINEAR, CUBIC }
 
@@ -65,3 +65,4 @@ func _draw():
 		return
 	for i in range(linepoints.size() - 1):
 		draw_line(linepoints[i], linepoints[i + 1], color, stroke_width)
+

@@ -6,9 +6,9 @@ extends GShapesCompatibleScene
 var axes: GraphAxes2D
 var sin_plot: FunctionPlot2D
 var cos_plot: FunctionPlot2D
-var sin_follower: LsgGraphLabelFollower2D
-var cos_follower: LsgGraphLabelFollower2D
-var tracker: LsgValueTracker
+var sin_follower: GShapesGraphLabelFollower2D
+var cos_follower: GShapesGraphLabelFollower2D
+var tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -109,4 +109,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

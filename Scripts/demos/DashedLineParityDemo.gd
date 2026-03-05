@@ -5,8 +5,8 @@ extends GShapesCompatibleScene
 
 var start_dot: Circle
 var end_dot: Circle
-var dashed: LsgDashedLine2D
-var phase_tracker: LsgValueTracker
+var dashed: GShapesDashedLine2D
+var phase_tracker: GShapesValueTracker
 
 
 func _ready() -> void:
@@ -24,11 +24,11 @@ func _ready() -> void:
 	dashed.dash_length = 22.0
 	dashed.gap_length = 12.0
 	add_child(dashed)
-	dashed.add_updater(func(target: LsgObject2D, _delta: float) -> void:
-		(target as LsgDashedLine2D).set_endpoints(start_dot.position, end_dot.position)
+	dashed.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
+		(target as GShapesDashedLine2D).set_endpoints(start_dot.position, end_dot.position)
 	)
 
-	end_dot.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	end_dot.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var t := phase_tracker.get_value()
 		var x := 820.0 + cos(t * 1.2) * 260.0
 		var y := 340.0 + sin(t * 2.0) * 130.0
@@ -59,4 +59,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

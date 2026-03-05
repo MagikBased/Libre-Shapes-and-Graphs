@@ -1,11 +1,10 @@
 # Demo: ThreeDRibbonTrailParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
 var mover: MeshInstance3D
-var ribbon: LsgRibbonTrail3D
+var ribbon: GShapesRibbonTrail3D
 var time_accum: float = 0.0
 
 
@@ -79,7 +78,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D ribbon-trail parity: LsgRibbonTrail3D | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
+	label.text = "3D ribbon-trail parity: GShapesRibbonTrail3D | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

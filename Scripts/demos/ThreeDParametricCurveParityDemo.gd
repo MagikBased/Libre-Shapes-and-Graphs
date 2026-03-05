@@ -1,12 +1,11 @@
 # Demo: ThreeDParametricCurveParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var curve: LsgParametricCurve3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var curve: GShapesParametricCurve3D
 var mover: MeshInstance3D
-var trail: LsgTracedPath3D
+var trail: GShapesTracedPath3D
 var mode_names: Array[StringName] = [&"helix", &"lissajous", &"trefoil", &"figure8"]
 var time_accum: float = 0.0
 var _last_mode_index: int = -1
@@ -105,7 +104,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D parametric-curve parity: LsgParametricCurve3D + tracer | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
+	label.text = "3D parametric-curve parity: GShapesParametricCurve3D + tracer | RMB orbit, MMB pan, wheel zoom, R reset, F reframe, C clear"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

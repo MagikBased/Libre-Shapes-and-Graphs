@@ -64,3 +64,5 @@ func _refresh_scene_text() -> void:
 	var exists := "ok" if ResourceLoader.exists(selected) else "missing"
 	scene_label.text = "%d / %d: %s [%s]" % [index + 1, demo_scenes.size(), selected, exists]
 
+
+

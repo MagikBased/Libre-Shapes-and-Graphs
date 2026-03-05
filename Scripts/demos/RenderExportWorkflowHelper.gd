@@ -89,3 +89,5 @@ func _refresh_labels() -> void:
 		float(profile.get("duration_seconds", 10.0)),
 	]
 	output_label.text = "Output basename: %s\nConvention: captures/%s.mp4" % [base_name, base_name]
+
+

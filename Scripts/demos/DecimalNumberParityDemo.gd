@@ -3,11 +3,11 @@
 
 extends GShapesCompatibleScene
 
-var phase_tracker: LsgValueTracker
+var phase_tracker: GShapesValueTracker
 var dot: Circle
-var theta_value: LsgDecimalNumber
-var sin_value: LsgDecimalNumber
-var cos_value: LsgDecimalNumber
+var theta_value: GShapesDecimalNumber
+var sin_value: GShapesDecimalNumber
+var cos_value: GShapesDecimalNumber
 
 
 func _ready() -> void:
@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_child(phase_tracker)
 
 	var center := Vector2(640.0, 360.0)
-	var ring: LsgPolylineMobject = GShapes.PolylineMobject.new()
+	var ring: GShapesPolylineMobject = GShapes.PolylineMobject.new()
 	ring.position = center
 	ring.color = Color(0.8, 0.88, 1.0, 0.45)
 	ring.stroke_width = 2.0
@@ -29,7 +29,7 @@ func _ready() -> void:
 	dot.size = Vector2(18.0, 18.0)
 	dot.color = Color(1.0, 0.86, 0.2)
 	add_child(dot)
-	dot.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	dot.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var theta := phase_tracker.get_value()
 		var p := center + Vector2(cos(theta), sin(theta)) * 170.0
 		(target as Node2D).position = p
@@ -90,4 +90,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

@@ -3,9 +3,9 @@
 
 extends GShapesCompatibleScene
 
-var tracker: LsgValueTracker
-var curve: LsgFourierCurve2D
-var frame: LsgTangentFrame2D
+var tracker: GShapesValueTracker
+var curve: GShapesFourierCurve2D
+var frame: GShapesTangentFrame2D
 var _last_strength: float = -9999.0
 
 
@@ -62,4 +62,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

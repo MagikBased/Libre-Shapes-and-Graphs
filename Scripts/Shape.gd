@@ -1,5 +1,5 @@
 class_name Shape
-extends LsgObject2D
+extends GShapesObject2D
 
 var size: Vector2 = Vector2(50, 50)
 var lifetime: float
@@ -9,3 +9,4 @@ var lifetime: float
 func _draw():
 	# Override this method in derived classes
 	pass
+

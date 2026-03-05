@@ -3,12 +3,12 @@
 
 extends GShapesCompatibleScene
 
-var eq_source: LsgMathTexMobject
-var eq_target: LsgMathTexMobject
-var eq_features: LsgMathTexMobject
-var eq_fallback: LsgMathTexMobject
-var eq_aliases: LsgMathTexMobject
-var eq_environments: LsgMathTexMobject
+var eq_source: GShapesMathTexMobject
+var eq_target: GShapesMathTexMobject
+var eq_features: GShapesMathTexMobject
+var eq_fallback: GShapesMathTexMobject
+var eq_aliases: GShapesMathTexMobject
+var eq_environments: GShapesMathTexMobject
 var fallback_info: Label
 var fallback_detail_info: Label
 var caption_label: Label
@@ -247,4 +247,6 @@ func _layout_diagnostics_labels(viewport_width: float, viewport_height: float) -
 	fallback_info.size = Vector2(content_width, 34.0)
 	fallback_detail_info.position = Vector2(left_x, bottom_y + 34.0)
 	fallback_detail_info.size = Vector2(content_width, 44.0)
+
+
 

@@ -5,12 +5,12 @@ extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
 var plot: FunctionPlot2D
-var area: LsgAreaUnderCurve2D
-var guides: LsgGraphGuideLines2D
-var tangent_line: LsgPolylineMobject
-var secant_line: LsgPolylineMobject
+var area: GShapesAreaUnderCurve2D
+var guides: GShapesGraphGuideLines2D
+var tangent_line: GShapesPolylineMobject
+var secant_line: GShapesPolylineMobject
 var dot: Circle
-var x_tracker: LsgValueTracker
+var x_tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -101,7 +101,7 @@ func _ready() -> void:
 	])
 
 
-func _update_marker_system(target: LsgObject2D, _delta: float) -> void:
+func _update_marker_system(target: GShapesObject2D, _delta: float) -> void:
 	var x := x_tracker.get_value()
 	var y := plot.eval_y(x)
 	target.position = axes.to_global(axes.c2p(x, y))
@@ -121,4 +121,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

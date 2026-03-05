@@ -4,11 +4,11 @@
 extends GShapesCompatibleScene
 
 var axes: GraphAxes2D
-var curve: LsgParametricFunction2D
-var bisection: LsgBisectionIteration2D
-var k_tracker: LsgValueTracker
-var left_tracker: LsgValueTracker
-var right_tracker: LsgValueTracker
+var curve: GShapesParametricFunction2D
+var bisection: GShapesBisectionIteration2D
+var k_tracker: GShapesValueTracker
+var left_tracker: GShapesValueTracker
+var right_tracker: GShapesValueTracker
 var info_label: Label
 
 
@@ -99,4 +99,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

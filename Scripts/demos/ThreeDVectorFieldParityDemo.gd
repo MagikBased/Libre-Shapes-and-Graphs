@@ -1,10 +1,9 @@
 # Demo: ThreeDVectorFieldParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var vectors: Array[LsgVector3D] = []
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var vectors: Array[GShapesVector3D] = []
 var anchors: Array[Vector3] = []
 var time_accum: float = 0.0
 
@@ -49,7 +48,7 @@ func _spawn_vector_grid() -> void:
 	for x in coords:
 		for z in coords:
 			var anchor := Vector3(x, 0.0, z)
-			var v: LsgVector3D = GShapes.Vector3D.new()
+			var v: GShapesVector3D = GShapes.Vector3D.new()
 			v.shaft_radius = 0.035
 			v.tip_radius = 0.085
 			v.tip_length_ratio = 0.26
@@ -88,7 +87,10 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D vector-field parity: animated LsgVector3D grid | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D vector-field parity: animated GShapesVector3D grid | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

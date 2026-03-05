@@ -1,5 +1,5 @@
 class_name FunctionPlot2D
-extends LsgObject2D
+extends GShapesObject2D
 
 var _axes: GraphAxes2D
 var axes: GraphAxes2D:
@@ -192,3 +192,6 @@ func _catmull_rom(p0: Vector2, p1: Vector2, p2: Vector2, p3: Vector2, t: float) 
 		(2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t2 +
 		(-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3
 	)
+
+
+

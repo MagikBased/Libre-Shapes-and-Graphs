@@ -46,7 +46,7 @@ func _make_circle(pos: Vector2, c: Color) -> Circle:
 
 
 func _make_ring_marker() -> Node2D:
-	var r: LsgPolylineMobject = GShapes.PolylineMobject.new()
+	var r: GShapesPolylineMobject = GShapes.PolylineMobject.new()
 	r.color = Color(0.8, 0.9, 1.0, 0.45)
 	r.stroke_width = 2.0
 	r.closed = true
@@ -68,4 +68,6 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
 

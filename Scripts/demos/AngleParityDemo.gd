@@ -6,9 +6,9 @@ extends GShapesCompatibleScene
 var pivot: Circle
 var ray_a_tip: Circle
 var ray_b_tip: Circle
-var angle_arc: LsgAngle2D
-var angle_label: LsgDecimalNumber
-var theta_tracker: LsgValueTracker
+var angle_arc: GShapesAngle2D
+var angle_label: GShapesDecimalNumber
+var theta_tracker: GShapesValueTracker
 
 
 func _ready() -> void:
@@ -26,7 +26,7 @@ func _ready() -> void:
 	ray_a.color = Color(0.95, 0.8, 0.3)
 	ray_a.stroke_width = 4.0
 	add_child(ray_a)
-	ray_a.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	ray_a.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		(target as Line).set_endpoints(pivot.position, ray_a_tip.position)
 	)
 
@@ -34,11 +34,11 @@ func _ready() -> void:
 	ray_b.color = Color(0.4, 0.95, 1.0)
 	ray_b.stroke_width = 4.0
 	add_child(ray_b)
-	ray_b.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	ray_b.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		(target as Line).set_endpoints(pivot.position, ray_b_tip.position)
 	)
 
-	ray_b_tip.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	ray_b_tip.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		var t := theta_tracker.get_value()
 		var r := 220.0
 		(target as Node2D).position = pivot.position + Vector2(cos(t), -sin(t)) * r
@@ -57,7 +57,7 @@ func _ready() -> void:
 	angle_label.set_value_source(func():
 		return rad_to_deg(absf(theta_tracker.get_value()))
 	)
-	angle_label.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	angle_label.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		(target as Node2D).global_position = angle_arc.get_label_anchor(26.0) + Vector2(-44.0, -16.0)
 	)
 
@@ -83,4 +83,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

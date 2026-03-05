@@ -1,11 +1,10 @@
 # Demo: ThreeDLabelsParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
 var movers: Array[MeshInstance3D] = []
-var labels: Array[LsgLabel3D] = []
+var labels: Array[GShapesLabel3D] = []
 var time_accum: float = 0.0
 
 
@@ -68,7 +67,7 @@ func _spawn_mover_with_label(name_tag: String, color: Color) -> void:
 	add_child(body)
 	movers.append(body)
 
-	var label: LsgLabel3D = GShapes.Label3DNode.new()
+	var label: GShapesLabel3D = GShapes.Label3DNode.new()
 	label.text_color = color.lightened(0.18)
 	label.outline_color = Color(0.03, 0.04, 0.08, 0.95)
 	label.anchor_offset = Vector3(0.0, 0.32, 0.0)
@@ -95,7 +94,10 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D labels parity: LsgLabel3D target/text tracking | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D labels parity: GShapesLabel3D target/text tracking | RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+

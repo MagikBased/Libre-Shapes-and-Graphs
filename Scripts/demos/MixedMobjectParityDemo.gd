@@ -3,10 +3,10 @@
 
 extends GShapesCompatibleScene
 
-var svg_obj: LsgSvgMobject
-var image_obj: LsgImageMobject
-var trail: LsgPolylineMobject
-var tracker: LsgValueTracker
+var svg_obj: GShapesSvgMobject
+var image_obj: GShapesImageMobject
+var trail: GShapesPolylineMobject
+var tracker: GShapesValueTracker
 
 
 func _ready() -> void:
@@ -59,13 +59,13 @@ func _ready() -> void:
 	], 0.9, &"overshoot")
 
 
-func _update_svg_position(target: LsgObject2D, _delta: float) -> void:
+func _update_svg_position(target: GShapesObject2D, _delta: float) -> void:
 	var t: float = tracker.get_value()
 	var local_point: Vector2 = GShapes.PathUtils.sample_polyline(trail.points, t, false)
 	target.position = trail.to_global(local_point) + Vector2(0.0, -90.0)
 
 
-func _update_image_position(target: LsgObject2D, _delta: float) -> void:
+func _update_image_position(target: GShapesObject2D, _delta: float) -> void:
 	var t: float = clampf(tracker.get_value() + 0.12, 0.0, 1.0)
 	var local_point: Vector2 = GShapes.PathUtils.sample_polyline(trail.points, t, false)
 	target.position = trail.to_global(local_point) + Vector2(0.0, 90.0)
@@ -89,4 +89,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 

@@ -1,10 +1,9 @@
 # Demo: ThreeDLatheSurfaceParityDemo
 # Expected behavior: See PlansAndCopy/DEMO_NOTES.md
 
-extends Lsg3DScene
-
-var axes: LsgAxes3D
-var lathe: LsgLatheSurface3D
+extends GShapes3DScene
+var axes: GShapesAxes3D
+var lathe: GShapesLatheSurface3D
 var marker: MeshInstance3D
 var time_accum: float = 0.0
 
@@ -88,7 +87,11 @@ func _create_overlay() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	var label := Label.new()
-	label.text = "3D lathe-surface parity: LsgLatheSurface3D | 1/2/3 profile, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
+	label.text = "3D lathe-surface parity: GShapesLatheSurface3D | 1/2/3 profile, RMB orbit, MMB pan, wheel zoom, R reset, F reframe"
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	layer.add_child(label)
+
+
+
+

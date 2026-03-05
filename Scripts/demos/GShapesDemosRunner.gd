@@ -270,3 +270,5 @@ func _suppress_demo_caption_labels(scene_root: Node) -> void:
 			if label.position.x <= 24.0 and label.position.y <= 20.0:
 				label.visible = false
 
+
+

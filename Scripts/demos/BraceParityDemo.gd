@@ -3,9 +3,9 @@
 
 extends GShapesCompatibleScene
 
-var terms: Array[LsgTextMobject] = []
-var brace: LsgBrace2D
-var brace_label: LsgTextMobject
+var terms: Array[GShapesTextMobject] = []
+var brace: GShapesBrace2D
+var brace_label: GShapesTextMobject
 
 
 func _ready() -> void:
@@ -27,7 +27,7 @@ func _build_equation_terms() -> void:
 	]
 	var start := Vector2(250.0, 300.0)
 	for i in range(parts.size()):
-		var t: LsgTextMobject = GShapes.TextMobject.new()
+		var t: GShapesTextMobject = GShapes.TextMobject.new()
 		t.text = parts[i]
 		t.font_size = 60
 		t.position = start + Vector2(float(i) * 110.0, 0.0)
@@ -51,7 +51,7 @@ func _build_brace() -> void:
 	brace_label.font_size = 34
 	brace_label.color = Color(0.62, 0.95, 1.0)
 	add_child(brace_label)
-	brace_label.add_updater(func(target: LsgObject2D, _delta: float) -> void:
+	brace_label.add_updater(func(target: GShapesObject2D, _delta: float) -> void:
 		(target as Node2D).global_position = brace.get_label_anchor(20.0) + Vector2(-110.0, 0.0)
 	)
 
@@ -91,4 +91,7 @@ func _create_caption(text: String) -> void:
 	label.position = Vector2(16.0, 12.0)
 	label.modulate = Color(0.9, 0.95, 1.0)
 	add_child(label)
+
+
+
 
