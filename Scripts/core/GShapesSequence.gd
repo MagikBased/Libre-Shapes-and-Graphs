@@ -6,10 +6,11 @@ var current_index: int = -1
 
 
 func _init(
-	p_animations: Array[GShapesAnimation],
+	p_animations: Array,
 	p_rate_func_name: StringName = &"linear"
 ) -> void:
-	for animation in p_animations:
+	for item in p_animations:
+		var animation: GShapesAnimation = item as GShapesAnimation
 		if animation != null:
 			animations.append(animation)
 
