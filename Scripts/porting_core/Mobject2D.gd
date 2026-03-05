@@ -1,2 +1,0 @@
-class_name Mobject2D
-extends PortObject2D

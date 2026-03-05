@@ -1,0 +1,2 @@
+class_name GShapesFlatScene3D
+extends LsgFlatScene3D

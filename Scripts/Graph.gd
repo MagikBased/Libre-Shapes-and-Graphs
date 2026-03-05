@@ -1,5 +1,5 @@
 class_name Graph
-extends PortObject2D
+extends LsgObject2D
 
 var data_points: PackedVector2Array = PackedVector2Array()
 var line_color: Color = Color.BLUE

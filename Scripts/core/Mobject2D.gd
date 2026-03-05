@@ -1,0 +1,2 @@
+class_name Mobject2D
+extends LsgObject2D

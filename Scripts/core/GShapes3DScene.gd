@@ -1,0 +1,2 @@
+class_name GShapes3DScene
+extends Lsg3DScene

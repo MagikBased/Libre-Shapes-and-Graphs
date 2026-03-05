@@ -1,0 +1,2 @@
+class_name GShapesCompatibleScene
+extends LsgCompatibleScene

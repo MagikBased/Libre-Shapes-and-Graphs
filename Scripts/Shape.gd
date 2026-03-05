@@ -1,5 +1,5 @@
 class_name Shape
-extends PortObject2D
+extends LsgObject2D
 
 var size: Vector2 = Vector2(50, 50)
 var lifetime: float

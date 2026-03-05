@@ -1,5 +1,5 @@
 class_name Line
-extends PortObject2D
+extends LsgObject2D
 
 enum LineType { LINEAR, CUBIC }
 

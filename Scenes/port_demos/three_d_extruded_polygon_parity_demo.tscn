@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://Scripts/port_demos/ThreeDExtrudedPolygonParityDemo.gd" id="1_q8l2u"]
-
-[node name="ThreeDExtrudedPolygonParityDemo" type="Node3D"]
-script = ExtResource("1_q8l2u")

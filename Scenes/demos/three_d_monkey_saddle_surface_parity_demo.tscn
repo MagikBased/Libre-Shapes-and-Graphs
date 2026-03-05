@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/demos/ThreeDMonkeySaddleSurfaceParityDemo.gd" id="1_tn2n6"]
+
+[node name="ThreeDMonkeySaddleSurfaceParityDemo" type="Node3D"]
+script = ExtResource("1_tn2n6")

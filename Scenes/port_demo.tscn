@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://2ap624yc2hk6"]
 
 [ext_resource type="Script" path="res://Scripts/porting_core/PortDemo.gd" id="1_00x0p"]
 
-[node name="PortDemo" type="Node2D"]
+[node name="PortDemo" type="Node2D" unique_id=1356082467]
 script = ExtResource("1_00x0p")
